@@ -1,32 +1,47 @@
 import { createRouter, createWebHistory } from "vue-router";
+// import authGuard from "../utils/authGuard";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // Auth and user relation routes
     {
       path: "/",
       name: "login",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/Login.vue"),
     },
     {
-      path: "/forgot-password",
-      name: "forgot-password",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: "/nueva-contrasena",
+      name: "nueva-contrasena",
       component: () => import("../views/ForgotPassword.vue"),
     },
     {
-      path: "/create-user",
-      name: "create-user",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: "/crear-usuario",
+      name: "crear-usuario",
       component: () => import("../views/CreateUser.vue"),
     },
+    // Core routes
+    {
+      path: "/buscador",
+      name: "buscador",
+      component: () => import("../views/SearchWorker.vue"),
+    },
+    {
+      path: "/fiscalizacion:rut",
+      name: "fiscalizacion",
+      component: () => import("../views/Inspection.vue"),
+    },
+    {
+      path: "/descargar-reporte",
+      name: "descargar-reporte",
+      component: () => import("../views/DownloadReport.vue"),
+    },
+    // Survey routes
+    // {
+    //   path: "/encuesta",
+    //   name: "encuesta",
+    //   component: () => import("../views/CreateUser.vue"),
+    // },
   ],
 });
 
