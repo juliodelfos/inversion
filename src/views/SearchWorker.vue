@@ -1,6 +1,6 @@
 <script setup>
 // Imports
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 import { FwbInput, FwbButton, FwbToggle } from "flowbite-vue";
 import Persona from "@/components/svg/Persona.vue";
 import RUT from "@/components/svg/RUT.vue";
@@ -10,18 +10,39 @@ import Age from "@/components/svg/Age.vue";
 import Woman from "@/components/svg/Woman.vue";
 import Men from "@/components/svg/Men.vue";
 import { searchWorkerByRut } from "../functions/searchWorkerByRUT";
+// import Menu from './Menu.vue';
 
 // Variables
 const rutSinDV = ref("");
 const resultado = ref(null);
 const informaError = ref(false);
+// const ICONS = [Persona, RUT, City, Company, Age, Woman, Men];
+// const WORKER = [];
 
-// Componentes
-// import Menu from './Menu.vue';
+// [
+//   {
+//     nombre: `${data.Nombres} ${data.Paterno} ${data.Materno}`,
+//     icon: Persona,
+//   },
+//   {
+//     rut: `${data.RUT.charAt(0) == "0" ? data.RUT.slice(1) : resultado.RUT}`,
+//     icon: RUT,
+//   },
+//   { comuna: `${data.Comuna}`, icon: City },
+//   { ejecutor: `${data.Ejecutor}`, icon: Company },
+//   { edad: `${data.Edad}`, icon: Age },
+//   {
+//     genero: `${data.Sexo == "F" ? "Femenino" : "Masculino"}`,
+//     icon: Woman,
+//   },
+// ];
 
 //Functions
 const searchByRut = (rutSinDV) =>
   searchWorkerByRut(rutSinDV).then((res) => (resultado.value = res));
+
+// Otros
+defineEmits(["rut", "error"]);
 </script>
 
 <template>
@@ -87,9 +108,7 @@ const searchByRut = (rutSinDV) =>
         <div class="border-t border-gray-200">
           <dl>
             <!-- Nombre -->
-            <div
-              class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
+            <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt class="text-sm font-semibold text-blue-900">
                 <Persona />
                 Nombre completo

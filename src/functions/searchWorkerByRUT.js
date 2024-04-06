@@ -12,7 +12,7 @@ const searchWorkerByRut = async (rut) => {
     return todes[0];
   } catch (error) {
     // toast.warning(`Error; ${error}`);
-    console.log(`Error; ${error}`);
+    alert(`Error; ${error.message}`);
   }
 };
 
