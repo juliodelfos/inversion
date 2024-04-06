@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView } from "vue-router";
 import { initFlowbite } from "flowbite";
-import {onMounted} from "vue";
+import { onMounted } from "vue";
 
 onMounted(() => {
   initFlowbite();
@@ -11,3 +11,9 @@ onMounted(() => {
 <template>
   <RouterView />
 </template>
+
+<style>
+svg {
+  display: inline-block;
+}
+</style>
