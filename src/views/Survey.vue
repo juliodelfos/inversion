@@ -7,6 +7,7 @@
             #default="{ value }"
             :actions="true"
             v-model="rankings"
+            @submit="nuevaEncuesta"
         >
             <h1
                 class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6"
@@ -20,6 +21,7 @@
 
 <script setup>
 import { ref } from "vue";
+import { newSurvey } from "../functions/newSurvey";
 
 const rankings = ref([]);
 
@@ -53,6 +55,7 @@ const schema = ref([
         "inner-class": "!w-[210px]",
         "on-item-wrapper-class": "!basis-[30px]",
         "off-item-wrapper-class": "!basis-[30px]",
+        validation: "required",
     },
     {
         $formkit: "rating",
@@ -65,6 +68,7 @@ const schema = ref([
         "inner-class": "!w-[210px]",
         "on-item-wrapper-class": "!basis-[30px]",
         "off-item-wrapper-class": "!basis-[30px]",
+        validation: "required",
     },
     {
         $formkit: "rating",
@@ -77,6 +81,18 @@ const schema = ref([
         "inner-class": "!w-[210px]",
         "on-item-wrapper-class": "!basis-[30px]",
         "off-item-wrapper-class": "!basis-[30px]",
+        validation: "required",
     },
 ]);
+
+const nuevaEncuesta = async () => {
+    const data = {
+        rutSinDV: "18677222",
+        pregunta_1: rankings.value.pregunta_1,
+        pregunta_2: rankings.value.pregunta_2,
+        pregunta_3: rankings.value.pregunta_3,
+        programa: "INV",
+    };
+    await newSurvey(data);
+};
 </script>
