@@ -74,7 +74,7 @@ async function insertRow(info) {
     </main>
 </template>
 
-<style>
+<style scoped>
 .labels {
     font-size: 0.9rem;
 }
