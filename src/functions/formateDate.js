@@ -6,13 +6,11 @@ const formateDate = (date) => {
   const day = fecha.getDate();
   const hour = fecha.getHours();
   const minute = fecha.getMinutes();
-  const seconds = fecha.getSeconds();
+  // const seconds = fecha.getSeconds();
 
   return `${year}-${month < 10 ? "0" + month : month}-${
     day < 10 ? "0" + day : day
-  }T${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}:${
-    seconds < 10 ? "0" + seconds : seconds
-  }`;
+  }T${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}:00`;
 };
 
 export { formateDate };
