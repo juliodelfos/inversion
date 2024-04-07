@@ -16,7 +16,7 @@ const schema = [
   // },
   {
     $formkit: "datetime-local",
-    name: "datetime-local",
+    name: "datetime",
     label: "Fecha y hora de supervisión",
     help: "Fecha y hora en que se visitó a trabajador/a",
     value: formateDate(new Date().toISOString()),
