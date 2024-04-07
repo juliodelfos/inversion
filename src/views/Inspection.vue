@@ -83,10 +83,6 @@ async function insertRow(info) {
     color: #003d80;
 }
 
-/* [data-type="submit"] .formkit-input {
-    width: 100%;
-} */
-
 .canvas-contenedor {
     width: 85%;
     height: 85%;
