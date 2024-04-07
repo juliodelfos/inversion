@@ -124,9 +124,13 @@ const searchByRut = (rutSinDV) => {
                             <dd
                                 class="mt-1 text-sm text-[#003D80] sm:col-span-2 sm:mt-0"
                             >
-                                <fwb-toggle
-                                    v-model="informaError"
+                                <FormKit
                                     label="¿Hay algún error en la información?"
+                                    type="toggle"
+                                    off-value-label="No"
+                                    on-value-label="Sí"
+                                    value-label-display="inner"
+                                    v-model="informaError"
                                 />
                             </dd>
                         </div>
