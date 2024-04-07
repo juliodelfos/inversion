@@ -13,40 +13,37 @@ const route = useRoute();
 
 // import Menu from './Menu.vue';
 // const toast = useToast();
-const urlFile = ref("");
-let reportaError = ref(route.query.error);
-const acumuladorURLs = ref([]);
 
-// const info = ref({
-//   presencia: false,
-//   date: null,
-//   time: null,
-//   firma: false,
-//   horarios_firma: false,
-//   funcion_contrato: false,
-//   comentario_funcion_contrato: "",
-//   utiliza_epp: false,
-//   comentario_utiliza_epp: "",
-//   // Se deja en 2022 para evitar el scroll excesivo
-//   supervision_ejecutora: "2022-01-01",
-//   fiscalizacion_ejecutora: false,
-//   observaciones: null,
-//   fiscalizador: "test",
-//   // fiscalizador: userSession.value,
-//   RutSDV: useAttrs().rut,
-//   errorDatos: "",
-//   herramientas: false,
-//   condiciones_espacio_laboral: false,
-//   comentario_condiciones_espacio_laboral: "",
-//   condiciones_maquinas: false,
-//   comentario_condiciones_maquinas: "",
-//   logo_proempleo: false,
-//   comuna: null,
-//   region: useAttrs().region,
-//   nombres: useAttrs().nombres,
-//   apellidos: useAttrs().paterno + " " + useAttrs().materno,
-//   ejecutor: useAttrs().ejecutor,
-// });
+const info = ref({
+    presencia: false,
+    date: null,
+    time: null,
+    firma: false,
+    horarios_firma: false,
+    funcion_contrato: false,
+    comentario_funcion_contrato: "",
+    utiliza_epp: false,
+    comentario_utiliza_epp: "",
+    // Se deja en 2022 para evitar el scroll excesivo
+    supervision_ejecutora: "2022-01-01",
+    fiscalizacion_ejecutora: false,
+    observaciones: null,
+    fiscalizador: "test",
+    // fiscalizador: userSession.value,
+    RutSDV: route.params.rut,
+    errorDatos: "",
+    herramientas: false,
+    condiciones_espacio_laboral: false,
+    comentario_condiciones_espacio_laboral: "",
+    condiciones_maquinas: false,
+    comentario_condiciones_maquinas: "",
+    logo_proempleo: false,
+    comuna: null,
+    region: route.params.region,
+    nombres: route.params.nombres,
+    apellidos: route.params.paterno + " " + route.params.materno,
+    ejecutor: route.params.ejecutor,
+});
 
 async function insertRow(info) {
     // Sube fotos a Supabase
@@ -55,7 +52,8 @@ async function insertRow(info) {
     // newInspection(
     // toast.success("Información guardada");
     // Vuelve al buscador
-    router.go(-1);
+    // router.go(-1);
+    console.log(info);
 }
 </script>
 
@@ -66,10 +64,8 @@ async function insertRow(info) {
     >
         <div class="w-11/12 sm:w-3/5 md:w-96 lg:w-4/12">
             <FormKitSchema :schema="schema" />
-            <pre>{{ route.params }}</pre>
-            <pre>{{ route.query }}</pre>
-            <!-- <FormKit type="form" v-model="info" @submit="insertRow">
-      </FormKit> -->
+            <FormKit type="form" v-model="info" @submit="insertRow"> </FormKit>
+            <pre>{{ schema }}</pre>
         </div>
     </main>
 </template>
