@@ -39,6 +39,7 @@ const schema = [
   // },
   {
     $formkit: "select",
+    autocomplete: true,
     name: "comuna",
     id: "comuna",
     label: "Comuna en que trabaja",
