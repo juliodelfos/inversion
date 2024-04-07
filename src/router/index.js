@@ -43,11 +43,11 @@ const router = createRouter({
       props: true,
     },
     // Survey routes
-    // {
-    //   path: "/encuesta",
-    //   name: "encuesta",
-    //   component: () => import("../views/CreateUser.vue"),
-    // },
+    {
+      path: "/encuesta",
+      name: "encuesta",
+      component: () => import("../views/Survey.vue"),
+    },
   ],
 });
 
