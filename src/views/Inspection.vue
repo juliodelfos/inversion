@@ -62,11 +62,15 @@ async function insertRow(info) {
     <main
         class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7"
     >
-        <div class="w-11/12 sm:w-3/5 md:w-96 lg:w-4/12">
+        <div>
             <FormKit type="form" v-model="info" @submit="insertRow">
+                <h1
+                    class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6"
+                >
+                    Registrar supervisión
+                </h1>
                 <FormKitSchema :schema="schema" />
             </FormKit>
-            <pre wrap>{{ schema }}</pre>
         </div>
     </main>
 </template>
