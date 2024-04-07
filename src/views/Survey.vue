@@ -23,6 +23,7 @@
 import { ref } from "vue";
 import { newSurvey } from "../functions/newSurvey";
 import { useRoute } from "vue-router";
+import router from "../router";
 const route = useRoute();
 const rankings = ref([]);
 
@@ -95,5 +96,8 @@ const nuevaEncuesta = async () => {
         region: route.params.region,
     };
     await newSurvey(data);
+    router.replace(
+        `/fiscalizacion/${route.params.region}/${route.params.nombres}/${route.params.paterno}/${route.params.materno}/${route.params.ejecutor}/${route.params.rut}?error=${route.query.error}`,
+    );
 };
 </script>
