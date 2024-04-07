@@ -1,4 +1,5 @@
 import { comunas } from "../utils/comunasChile";
+import { formateDate } from "../functions/formateDate";
 let reportaError = false;
 
 const schema = [
@@ -18,7 +19,7 @@ const schema = [
     name: "datetime-local",
     label: "Fecha y hora de supervisión",
     help: "Fecha y hora en que se visitó a trabajador/a",
-    value: Date.now().toLocaleString(),
+    value: formateDate(new Date().toISOString()),
     labelClass: "labels",
     classes: {
       help: "textoAzul",
