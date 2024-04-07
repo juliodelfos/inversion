@@ -141,7 +141,7 @@ const searchByRut = (rutSinDV) => {
                 class="w-[100%] py-4 px-10"
                 size="xl"
                 color="default"
-                :href="`/fiscalizacion/${resultado.Region}/${resultado.Nombres}/${resultado.Paterno}/${resultado.Materno}/${resultado.Ejecutor}/${rutSinDV}?error=${informaError}`"
+                :href="`/encuesta/${resultado.Region}/${resultado.Nombres}/${resultado.Paterno}/${resultado.Materno}/${resultado.Ejecutor}/${rutSinDV}?error=${informaError}`"
                 tag="router-link"
                 pill
                 >Continuar</fwb-button
