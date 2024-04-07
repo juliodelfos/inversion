@@ -66,7 +66,7 @@ async function insertRow(info) {
             <FormKit type="form" v-model="info" @submit="insertRow">
                 <FormKitSchema :schema="schema" />
             </FormKit>
-            <pre>{{ schema }}</pre>
+            <pre wrap>{{ schema }}</pre>
         </div>
     </main>
 </template>
