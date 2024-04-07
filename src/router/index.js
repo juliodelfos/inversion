@@ -36,6 +36,12 @@ const router = createRouter({
       name: "descargar-reporte",
       component: () => import("../views/DownloadReport.vue"),
     },
+    {
+      path: "/test",
+      name: "test",
+      component: () => import("../views/Test.vue"),
+      props: true,
+    },
     // Survey routes
     // {
     //   path: "/encuesta",

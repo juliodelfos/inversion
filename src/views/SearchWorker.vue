@@ -1,48 +1,27 @@
 <script setup>
 // Imports
-import { ref, defineEmits } from "vue";
+import { ref, defineProps } from "vue";
 import { FwbInput, FwbButton, FwbToggle } from "flowbite-vue";
-import Persona from "@/components/svg/Persona.vue";
-import RUT from "@/components/svg/RUT.vue";
-import City from "@/components/svg/City.vue";
-import Company from "@/components/svg/Company.vue";
-import Age from "@/components/svg/Age.vue";
-import Woman from "@/components/svg/Woman.vue";
-import Men from "@/components/svg/Men.vue";
 import { searchWorkerByRut } from "../functions/searchWorkerByRUT";
+import { fromObject2Array } from "../functions/fromObject2Array";
 // import Menu from './Menu.vue';
 
 // Variables
 const rutSinDV = ref("");
 const resultado = ref(null);
 const informaError = ref(false);
-// const ICONS = [Persona, RUT, City, Company, Age, Woman, Men];
-// const WORKER = [];
-
-// [
-//   {
-//     nombre: `${data.Nombres} ${data.Paterno} ${data.Materno}`,
-//     icon: Persona,
-//   },
-//   {
-//     rut: `${data.RUT.charAt(0) == "0" ? data.RUT.slice(1) : resultado.RUT}`,
-//     icon: RUT,
-//   },
-//   { comuna: `${data.Comuna}`, icon: City },
-//   { ejecutor: `${data.Ejecutor}`, icon: Company },
-//   { edad: `${data.Edad}`, icon: Age },
-//   {
-//     genero: `${data.Sexo == "F" ? "Femenino" : "Masculino"}`,
-//     icon: Woman,
-//   },
-// ];
+const WORKER = ref(null);
 
 //Functions
-const searchByRut = (rutSinDV) =>
-  searchWorkerByRut(rutSinDV).then((res) => (resultado.value = res));
+const searchByRut = (rutSinDV) => {
+  searchWorkerByRut(rutSinDV).then((res) => {
+    resultado.value = res;
+    WORKER.value = fromObject2Array(res);
+  });
+};
 
 // Otros
-defineEmits(["rut", "error"]);
+defineProps(["rut", "error"]);
 </script>
 
 <template>
@@ -107,88 +86,34 @@ defineEmits(["rut", "error"]);
 
         <div class="border-t border-gray-200">
           <dl>
-            <!-- Nombre -->
-            <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm font-semibold text-blue-900">
-                <Persona />
-                Nombre completo
-              </dt>
-              <dd class="mt-1 text-sm text-[#003D80] sm:col-span-2 sm:mt-0">
-                {{
-                  resultado.Nombres +
-                  " " +
-                  resultado.Paterno +
-                  " " +
-                  resultado.Materno
-                }}
-              </dd>
-            </div>
-
-            <!-- RUT -->
             <div
-              class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
-              <dt class="text-sm font-semibold text-blue-900"><RUT /> RUT</dt>
-              <dd class="mt-1 text-sm text-[#003D80] sm:col-span-2 sm:mt-0">
-                {{
-                  resultado.RUT.charAt(0) == "0"
-                    ? resultado.RUT.slice(1)
-                    : resultado.RUT
-                }}
-              </dd>
-            </div>
-
-            <!-- Comuna -->
-            <div
-              class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+              class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+              v-for="w in WORKER"
+              :key="w.rutSinDV"
             >
               <dt class="text-sm font-semibold text-blue-900">
-                <City /> Comuna
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline"
+                  :class="w.iconClass"
+                  v-html="w.path"
+                ></svg>
+                {{ w.tag }}
               </dt>
               <dd class="mt-1 text-sm text-[#003D80] sm:col-span-2 sm:mt-0">
-                {{ resultado.Comuna }}
+                {{ w.value }}
               </dd>
             </div>
 
-            <!-- Comuna -->
-            <div
-              class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
-              <dt class="text-sm font-semibold text-blue-900">
-                <Company /> Ejecutora
-              </dt>
-              <dd
-                class="mt-1 text-sm text-[#003D80] sm:col-span-2 sm:mt-0 capitalize"
-              >
-                {{ resultado.Ejecutor }}
-              </dd>
-            </div>
-
-            <!-- Edad -->
-            <div
-              class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
-              <dt class="text-sm font-semibold text-blue-900"><Age /> Edad</dt>
-              <dd class="mt-1 text-sm text-[#003D80] sm:col-span-2 sm:mt-0">
-                {{ resultado.Edad }}
-              </dd>
-            </div>
-
-            <!-- Género -->
-            <div
-              class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
-              <dt class="text-sm font-semibold text-blue-900">
-                <span v-if="resultado.Sexo == 'F'"><Woman /></span>
-                <span v-else><Men /></span>
-                Género
-              </dt>
-              <dd class="mt-1 text-sm text-[#003D80] sm:col-span-2 sm:mt-0">
-                {{ resultado.Sexo == "F" ? "Femenino" : "Masculino" }}
-              </dd>
-            </div>
-
-            <!-- Error -->
+            <!-- Reportar error -->
             <div
               class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
             >
@@ -199,6 +124,7 @@ defineEmits(["rut", "error"]);
                 <fwb-toggle
                   v-model="informaError"
                   label="¿Hay algún error en la información?"
+                  class="text-[#003D80]"
                 />
               </dd>
             </div>
