@@ -4,16 +4,16 @@ import { initFlowbite } from "flowbite";
 import { onMounted } from "vue";
 
 onMounted(() => {
-  initFlowbite();
+    initFlowbite();
 });
 </script>
 
 <template>
-  <RouterView />
+    <RouterView />
 </template>
 
 <style>
 svg {
-  display: inline-block;
+    display: inline-block;
 }
 </style>
