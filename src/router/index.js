@@ -27,7 +27,7 @@ const router = createRouter({
       component: () => import("../views/SearchWorker.vue"),
     },
     {
-      path: "/fiscalizacion:rut",
+      path: "/fiscalizacion/:region/:nombres/:paterno/:materno/:ejecutor/:rut",
       name: "fiscalizacion",
       component: () => import("../views/Inspection.vue"),
     },

@@ -2,67 +2,68 @@
 import { ref, useAttrs } from "vue";
 import { supabase } from "../supabase";
 import { FormKitSchema } from "@formkit/vue";
-import { useToast } from "vue-toastification";
+// import { useToast } from "vue-toastification";
 import { useRoute } from "vue-router";
-import VueDrawingCanvas from "vue-drawing-canvas";
-import comunas from "../comunas"
+// import VueDrawingCanvas from "vue-drawing-canvas";
+import { comunas } from "../utils/comunasChile";
 import router from "../router";
-import { userSessionStore } from "../stores/userSession";
+// import { userSessionStore } from "../stores/userSession";
 const route = useRoute();
-const toast = useToast();
-import Menu from './Menu.vue';
+// const toast = useToast();
+// import Menu from './Menu.vue';
 const urlFile = ref("");
 
 const canvas = ref({
   width: 200,
   height: 200,
   lineWidth: 1,
-  saveAs: 'png',
-  width: '300',
-  height: '300'
-})
+  saveAs: "png",
+  width: "300",
+  height: "300",
+});
 
-let imagenCreada = ref("")
+let imagenCreada = ref("");
 
-const VueCanvasDrawing = ref(null)
+const VueCanvasDrawing = ref(null);
 
 // initialize userSession store
-const userSession = ref(userSessionStore().session.user.email);
+// const userSession = ref(userSessionStore().session.user.email);
 
 let reportaError = ref(route.query.error);
 
 //#region
 // FormKit
-const info = ref({
-  presencia: false,
-  date: null,
-  time: null,
-  firma: false,
-  horarios_firma: false,
-  funcion_contrato: false,
-  comentario_funcion_contrato: "",
-  utiliza_epp: false,
-  comentario_utiliza_epp: "",
-  // Se deja en 2022 para evitar el scroll excesivo
-  supervision_ejecutora: '2022-01-01',
-  fiscalizacion_ejecutora: false,
-  observaciones: null,
-  fiscalizador: userSession.value,
-  RutSDV: useAttrs().rut,
-  errorDatos: "",
-  herramientas: false,
-  condiciones_espacio_laboral: false,
-  comentario_condiciones_espacio_laboral: "",
-  condiciones_maquinas: false,
-  comentario_condiciones_maquinas: "",
-  logo_proempleo: false,
-  comuna: null,
-  region: useAttrs().region,
-  firmaImg: null,
-  nombres: useAttrs().nombres,
-  apellidos: useAttrs().paterno + " " + useAttrs().materno,
-  ejecutor: useAttrs().ejecutor,
-});
+// const info = ref({
+//   presencia: false,
+//   date: null,
+//   time: null,
+//   firma: false,
+//   horarios_firma: false,
+//   funcion_contrato: false,
+//   comentario_funcion_contrato: "",
+//   utiliza_epp: false,
+//   comentario_utiliza_epp: "",
+//   // Se deja en 2022 para evitar el scroll excesivo
+//   supervision_ejecutora: "2022-01-01",
+//   fiscalizacion_ejecutora: false,
+//   observaciones: null,
+//   fiscalizador: "test",
+//   // fiscalizador: userSession.value,
+//   RutSDV: useAttrs().rut,
+//   errorDatos: "",
+//   herramientas: false,
+//   condiciones_espacio_laboral: false,
+//   comentario_condiciones_espacio_laboral: "",
+//   condiciones_maquinas: false,
+//   comentario_condiciones_maquinas: "",
+//   logo_proempleo: false,
+//   comuna: null,
+//   region: useAttrs().region,
+//   firmaImg: null,
+//   nombres: useAttrs().nombres,
+//   apellidos: useAttrs().paterno + " " + useAttrs().materno,
+//   ejecutor: useAttrs().ejecutor,
+// });
 
 const schema = [
   {
@@ -104,7 +105,7 @@ const schema = [
     validation: "required|time",
   },
   {
-    $formkit: "autocomplete",
+    $formkit: "select",
     name: "comuna",
     id: "comuna",
     label: "Comuna en que trabaja",
@@ -346,7 +347,7 @@ async function insertRow(info) {
   const formdata = new FormData();
   const myHeaders = new Headers();
   const urlencoded = new URLSearchParams();
-  const imagenFirma = ref('');
+  const imagenFirma = ref("");
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
   urlencoded.append("file", `${imagenCreada.value}`);
   urlencoded.append("name", info.RutSDV);
@@ -356,7 +357,7 @@ async function insertRow(info) {
 
   const uploadOptions = {
     method: "POST",
-    redirect: "follow"
+    redirect: "follow",
   };
 
   for (const archivo of info.files) {
@@ -367,21 +368,21 @@ async function insertRow(info) {
     formdata.append("folder", "fiscalizacion");
     await fetch("https://api.cloudinary.com/v1_1/dvimz0k3r/auto/upload", {
       ...uploadOptions,
-      body: formdata
+      body: formdata,
     })
       .then((response) => response.json())
       .then((result) => acumuladorURLs.value.push(result.url))
-      .catch((error) => toast.warning(`Error: ${error}`));
+      .catch((error) => console.log(`Error: ${error}`));
   }
 
   await fetch("https://api.cloudinary.com/v1_1/dvimz0k3r/auto/upload", {
     ...uploadOptions,
     body: urlencoded,
-    headers: myHeaders
+    headers: myHeaders,
   })
-    .then(response => response.json())
-    .then(result => imagenFirma.value = result.url)
-    .catch(error => console.log('error', error));
+    .then((response) => response.json())
+    .then((result) => (imagenFirma.value = result.url))
+    .catch((error) => console.log("error", error));
 
   await supabase.from("fiscalizacion").insert([
     {
@@ -401,7 +402,8 @@ async function insertRow(info) {
       file: acumuladorURLs.value.length > 0 ? acumuladorURLs.value : null,
       herramientas: info.herramientas,
       condiciones_espacio_laboral: info.condiciones_espacio_laboral,
-      comentario_condiciones_espacio_laboral: info.comentario_condiciones_espacio_laboral,
+      comentario_condiciones_espacio_laboral:
+        info.comentario_condiciones_espacio_laboral,
       comentario_utiliza_epp: info.comentario_utiliza_epp,
       comentario_herramientas: info.comentario_herramientas,
       condiciones_maquinas: info.condiciones_maquinas,
@@ -411,31 +413,44 @@ async function insertRow(info) {
       comuna: info.comuna,
       region: info.region,
       firmaImg: imagenFirma.value,
-      mes: info.date.split("-")[1].trim()[1] > 9 ? +info.date.split("-")[1].trim()[1] : +info.date.split("-")[1].trim(),
+      mes:
+        info.date.split("-")[1].trim()[1] > 9
+          ? +info.date.split("-")[1].trim()[1]
+          : +info.date.split("-")[1].trim(),
       nombres: info.nombres,
       apellidos: info.apellidos,
       ejecutor: info.ejecutor,
     },
   ]);
 
-  toast.success("Información guardada");
+  // toast.success("Información guardada");
   router.go(-1);
 }
 //#endregion
 </script>
 
 <template>
-  <Menu></Menu>
-  <main class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7">
+  <!-- <Menu></Menu> -->
+  <main
+    class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7"
+  >
     <div class="w-11/12 sm:w-3/5 md:w-96 lg:w-4/12">
-      <FormKit type="form" v-model="info" @submit="insertRow">
-        <FormKitSchema :schema="schema" />
-        <h2 class="textoAzul labels font-bold" v-show="info.presencia">Firma trabajador/a</h2>
+      <FormKitSchema :schema="schema" />
+      <!-- <FormKit type="form" v-model="info" @submit="insertRow">
+        <h2 class="textoAzul labels font-bold" v-show="info.presencia">
+          Firma trabajador/a
+        </h2>
         <div class="canvas-contenedor" v-show="info.presencia">
-          <vue-drawing-canvas ref="VueCanvasDrawing" :lineWidth="canvas.lineWidth" :saveAs="canvas.saveAs"
-            :height="canvas.height" :width="canvas.width" v-model:image="imagenCreada" />
+          <vue-drawing-canvas
+            ref="VueCanvasDrawing"
+            :lineWidth="canvas.lineWidth"
+            :saveAs="canvas.saveAs"
+            :height="canvas.height"
+            :width="canvas.width"
+            v-model:image="imagenCreada"
+          />
         </div>
-      </FormKit>
+      </FormKit> -->
     </div>
   </main>
 </template>
@@ -465,11 +480,9 @@ async function insertRow(info) {
 .canvas-contenedor {
   width: 85%;
   height: 85%;
-  padding-top: .7rem;
+  padding-top: 0.7rem;
   margin: 0 1.3rem 1.3rem 1.3rem;
   display: flex;
   justify-content: center;
 }
 </style>
-
-

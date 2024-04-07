@@ -1,6 +1,6 @@
 <script setup>
 // Imports
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
 import { FwbInput, FwbButton, FwbToggle } from "flowbite-vue";
 import { searchWorkerByRut } from "../functions/searchWorkerByRUT";
 import { fromObject2Array } from "../functions/fromObject2Array";
@@ -19,9 +19,6 @@ const searchByRut = (rutSinDV) => {
     WORKER.value = fromObject2Array(res);
   });
 };
-
-// Otros
-defineProps(["rut", "error"]);
 </script>
 
 <template>
