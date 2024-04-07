@@ -8,7 +8,11 @@ const formateDate = (date) => {
   const minute = fecha.getMinutes();
   const seconds = fecha.getSeconds();
 
-  return `${year}-${month}-${day}T${hour}:${minute}:${seconds}`;
+  return `${year}-${month < 10 ? "0" + month : month}-${
+    day < 10 ? "0" + day : day
+  }T${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}:${
+    seconds < 10 ? "0" + seconds : seconds
+  }`;
 };
 
 export { formateDate };
