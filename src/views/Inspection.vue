@@ -14,7 +14,7 @@ const route = useRoute();
 // import Menu from './Menu.vue';
 // const toast = useToast();
 
-const info = ref({
+const info = {
     presencia: false,
     date: null,
     time: null,
@@ -43,7 +43,7 @@ const info = ref({
     nombres: route.params.nombres,
     apellidos: route.params.paterno + " " + route.params.materno,
     ejecutor: route.params.ejecutor,
-});
+};
 
 async function insertRow(info) {
     // Sube fotos a Supabase
@@ -63,8 +63,9 @@ async function insertRow(info) {
         class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7"
     >
         <div class="w-11/12 sm:w-3/5 md:w-96 lg:w-4/12">
-            <FormKitSchema :schema="schema" />
-            <FormKit type="form" v-model="info" @submit="insertRow"> </FormKit>
+            <FormKit type="form" v-model="info" @submit="insertRow">
+                <FormKitSchema :schema="schema" />
+            </FormKit>
             <pre>{{ schema }}</pre>
         </div>
     </main>
