@@ -4,10 +4,10 @@ import { FormKitSchema } from "@formkit/vue";
 import { schema } from "../utils/formkitSchema";
 //import { uploadFileToSupabase } from "../functions/uploadFileToSupabase";
 import { newInspection } from "../functions/newInspection";
-// import { useToast } from "vue-toastification";
 import { useRoute } from "vue-router";
 import router from "../router";
 const route = useRoute();
+// import { useToast } from "vue-toastification";
 // import { userSessionStore } from "../stores/userSession";
 // const userSession = ref(userSessionStore().session.user.email);
 
@@ -16,10 +16,7 @@ const route = useRoute();
 
 const info = {
   presencia: false,
-  // timestamp -> autogenerado
-  // id -> autogenerado
   date: null, // fecha y hora
-  // time: info.time, -> ya no aplicaría
   firma: false,
   horarios_firma: false,
   utiliza_epp: false,
@@ -35,21 +32,13 @@ const info = {
   errorDatos: "",
   herramientas: false,
   condiciones_espacio_laboral: false,
-//   comentario_condiciones_espacio_laboral: "",
-//   condiciones_maquinas: false,
-//   comentario_condiciones_maquinas: "",
   logo_proempleo: false,
   comuna: null,
   region: route.params.region,
-  // firmaImg: info.imagenFirma.value, -> ya no aplicaría
   mes: "test",
-    // date.split("-")[1].trim()[1] > 9
-    //   ? +date.split("-")[1].trim()[1]
-    //   : +date.split("-")[1].trim(),
   nombres: route.params.nombres,
   apellidos: route.params.paterno + " " + route.params.materno,
   ejecutor: route.params.ejecutor,
-//   comentario_herramientas: "",
 };
 
 async function insertRow(info) {
