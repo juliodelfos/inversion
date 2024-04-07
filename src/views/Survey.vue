@@ -22,7 +22,8 @@
 <script setup>
 import { ref } from "vue";
 import { newSurvey } from "../functions/newSurvey";
-
+import { useRoute } from "vue-router";
+const route = useRoute();
 const rankings = ref([]);
 
 const preguntas = [
@@ -87,11 +88,11 @@ const schema = ref([
 
 const nuevaEncuesta = async () => {
     const data = {
-        rutSinDV: "18677222",
+        rutSinDV: route.params.rut,
         pregunta_1: rankings.value.pregunta_1,
         pregunta_2: rankings.value.pregunta_2,
         pregunta_3: rankings.value.pregunta_3,
-        programa: "INV",
+        region: route.params.region,
     };
     await newSurvey(data);
 };
