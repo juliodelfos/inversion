@@ -1,18 +1,17 @@
 import { es } from "@formkit/i18n";
-import { defaultConfig } from "@formkit/vue";
+import { defaultConfig, plugin } from "@formkit/vue";
 import { rootClasses } from "../formkit.theme.mjs";
 import {
   createProPlugin,
-  inputs,
   toggle,
   rating,
   autocomplete,
   mask,
 } from "@formkit/pro";
+import { genesisIcons } from "@formkit/icons";
 
 const formkit_pro = import.meta.env.VITE_FORMKIT_PRO;
 const pro = createProPlugin(formkit_pro, {
-  inputs,
   toggle,
   rating,
   autocomplete,
@@ -26,4 +25,5 @@ export default defaultConfig({
     rootClasses,
   },
   plugins: [pro],
+  icons: { ...genesisIcons },
 });
