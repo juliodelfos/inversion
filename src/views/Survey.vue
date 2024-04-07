@@ -1,47 +1,82 @@
 <template>
-  <main
-    class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7"
-  >
-    <FormKit type="form" #default="{ value }" :actions="false">
-      <FormKit type="rating" step="0.5" name="ratingLaCasa">
-        <template #label="context">
-          <label :class="context.classes.label"
-            >Rate your stay at <em>La Casa Madrigal</em></label
-          >
-        </template>
-      </FormKit>
-      <pre wrap>{{ value }}</pre>
-    </FormKit>
-  </main>
+    <main
+        class="bg-blue-100 grid h-screen place-items-center text-[#003D80] px-4 pt-4 pb-7"
+    >
+        <FormKit
+            type="form"
+            #default="{ value }"
+            :actions="true"
+            v-model="rankings"
+        >
+            <h1
+                class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6"
+            >
+                Encuesta de satisfacción
+            </h1>
+            <FormKitSchema :schema="schema" />
+        </FormKit>
+    </main>
 </template>
 
 <script setup>
 import { ref } from "vue";
 
+const rankings = ref([]);
+
 const preguntas = [
-  {
-    id: 1,
-    pregunta:
-      "¿Qué tan satisfecho se encuentra con la atención recibida por el ejecutor del programa durante el periodo 2024?",
-    // tipo: 'rating',
-    // opciones: ['1', '2', '3', '4', '5'],
-    // respuesta: null,
-  },
-  {
-    id: 2,
-    pregunta:
-      "¿Qué tan satisfecho se encuentra respecto al cumplimiento del objetivo por el cuál ingreso al programa (Empleo directo/Inserción laboral)?",
-    // tipo: 'rating',
-    // opciones: ['1', '2', '3', '4', '5'],
-    // respuesta: null,
-  },
-  {
-    id: 3,
-    pregunta:
-      "¿Qué tan satisfecho se encuentra con su participación en el Programa (el Programa ha sido lo que esperaba)?",
-    // tipo: 'rating',
-    // opciones: ['1', '2', '3', '4', '5'],
-    // respuesta: null,
-  },
+    {
+        id: 1,
+        pregunta:
+            "En general, ¿qué tan satisfecho se encuentra con la atención recibida por el ejecutor del programa durante el periodo 2024?",
+    },
+    {
+        id: 2,
+        pregunta:
+            "En general, ¿qué tan satisfecho se encuentra respecto al cumplimiento del objetivo por el cuál ingreso al programa?",
+    },
+    {
+        id: 3,
+        pregunta:
+            "En general, ¿qué tan satisfecho se encuentra con su participación en el Programa?",
+    },
 ];
+
+const schema = ref([
+    {
+        $formkit: "rating",
+        name: "pregunta_1",
+        label: preguntas[0].pregunta,
+        help: "Nota del 1 al 7",
+        step: "0.5",
+        min: 1,
+        max: 7,
+        "inner-class": "!w-[210px]",
+        "on-item-wrapper-class": "!basis-[30px]",
+        "off-item-wrapper-class": "!basis-[30px]",
+    },
+    {
+        $formkit: "rating",
+        name: "pregunta_2",
+        label: preguntas[1].pregunta,
+        help: "Nota del 1 al 7",
+        step: "0.5",
+        min: 1,
+        max: 7,
+        "inner-class": "!w-[210px]",
+        "on-item-wrapper-class": "!basis-[30px]",
+        "off-item-wrapper-class": "!basis-[30px]",
+    },
+    {
+        $formkit: "rating",
+        name: "pregunta_3",
+        label: preguntas[2].pregunta,
+        help: "Nota del 1 al 7",
+        step: "0.5",
+        min: 1,
+        max: 7,
+        "inner-class": "!w-[210px]",
+        "on-item-wrapper-class": "!basis-[30px]",
+        "off-item-wrapper-class": "!basis-[30px]",
+    },
+]);
 </script>
