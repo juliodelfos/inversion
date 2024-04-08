@@ -38,8 +38,8 @@ const router = createRouter({
       },
     },
     {
-      path: "/fiscalizacion/:region/:comuna/:nombres/:paterno/:materno/:ejecutor/:rut",
-      name: "fiscalizacion",
+      path: "/supervision/:region/:comuna/:nombres/:paterno/:materno/:ejecutor/:rut",
+      name: "supervision",
       component: () => import("../views/Inspection.vue"),
       meta: {
         needsAuth: true,
