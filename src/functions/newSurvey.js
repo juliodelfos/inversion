@@ -4,7 +4,6 @@ import { useToast } from "vue-toastification";
 const toast = useToast();
 
 const newSurvey = async (datos) => {
-  console.log(datos);
   try {
     const { data, error } = await supabase.from("surveys").insert(datos);
 
@@ -15,7 +14,7 @@ const newSurvey = async (datos) => {
     toast.success("Encuesta enviada exitosamente");
     return data;
   } catch (error) {
-    console.error("Error insertando encuesta:", error);
+    toast.error("Error insertando encuesta:", error);
     return;
   }
 };

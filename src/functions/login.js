@@ -17,7 +17,6 @@ const login = async (email, password) => {
     } 
     error ? toast.error('Credenciales incorrectas') : null;
   } catch (error) {
-    console.log(error)
     toast.error("Error en el ingreso. Inténtalo nuevamente");
   }
 };
