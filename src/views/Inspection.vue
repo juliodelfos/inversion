@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from "vue";
+// import { ref } from "vue";
 import { FormKitSchema } from "@formkit/vue";
 import { schema } from "../utils/formkitSchema";
-//import { uploadFileToSupabase } from "../functions/uploadFileToSupabase";
+import { uploadFileToSupabase } from "../functions/uploadFileToSupabase";
 import { newInspection } from "../functions/newInspection";
+import { deleteWeirdCharacters } from "../functions/deleteWeirdCharacters";
 import { useRoute } from "vue-router";
 import router from "../router";
 const route = useRoute();
@@ -25,9 +26,7 @@ const info = {
   funcion_contrato: false,
   fiscalizador: "test",
   RutSDV: route.params.rut,
-  /* file:
-        info.acumuladorURLs.value.length > 0 ? acumuladorURLs.value : info.null, */ // por mientras vacío
-//   comentario_funcion_contrato: "",
+  //   comentario_funcion_contrato: "",
   comentario_utiliza_epp: "",
   errorDatos: "",
   herramientas: false,
@@ -41,16 +40,26 @@ const info = {
   ejecutor: route.params.ejecutor,
 };
 
-async function insertRow(info) {
+const insertRow = async (info) => {
   // Sube fotos a Supabase
-  // uploadFileToSupabase()
-  // Crea row en la tabla fiscalizacion
+  const pathfile = `${deleteWeirdCharacters(
+    route.params.region
+  )}/${deleteWeirdCharacters(info.comuna).replace(/ /g, "")}/${info.RutSDV}.${
+    info.file[0].name.split(".")[1] // extensión
+  }`;
 
-  newInspection(info);
+  await uploadFileToSupabase(pathfile, info.file);
+
+  const filePathSupabase = `${
+    import.meta.env.VITE_SUPABASE_URL
+  }/storage/v1/object/public/fiscalizaciones/${pathfile}`;
+
+  // Crea row en la tabla fiscalizacion
+  await newInspection(info, filePathSupabase);
   // toast.success("Información guardada");
   // Vuelve al buscador
-  // router.go(-1);
-}
+  router.replace("/buscador");
+};
 </script>
 
 <template>
