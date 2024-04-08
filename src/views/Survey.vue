@@ -100,7 +100,7 @@ const nuevaEncuesta = async () => {
   };
   await newSurvey(data);
   router.replace(
-    `/fiscalizacion/${route.params.region}/${route.params.comuna}/${route.params.nombres}/${route.params.paterno}/${route.params.materno}/${route.params.ejecutor}/${route.params.rut}?error=${route.query.error}`
+    `/supervision/${route.params.region}/${route.params.comuna}/${route.params.nombres}/${route.params.paterno}/${route.params.materno}/${route.params.ejecutor}/${route.params.rut}?error=${route.query.error}`
   );
 };
 </script>
