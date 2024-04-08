@@ -1,5 +1,4 @@
 <script setup>
-// import { ref } from "vue";
 import { FormKitSchema } from "@formkit/vue";
 import { schema } from "../utils/formkitSchema";
 import { uploadFileToSupabase } from "../functions/uploadFileToSupabase";
@@ -8,12 +7,8 @@ import { deleteWeirdCharacters } from "../functions/deleteWeirdCharacters";
 import { useRoute } from "vue-router";
 import router from "../router";
 const route = useRoute();
-// import { useToast } from "vue-toastification";
-// import { userSessionStore } from "../stores/userSession";
-// const userSession = ref(userSessionStore().session.user.email);
 
 // import Menu from './Menu.vue';
-// const toast = useToast();
 
 const info = {
   presencia: false,
@@ -53,17 +48,12 @@ const insertRow = async (info) => {
     const filePathSupabase = `${import.meta.env.VITE_SUPABASE_URL
       }/storage/v1/object/public/fiscalizaciones/${pathfile}`;
 
-    // Crea row en la tabla fiscalizacion
     await newInspection(info, filePathSupabase);
-    // toast.success("Información guardada");
-    // Vuelve al buscador
     router.replace("/buscador");
   } else {
     const filePathSupabase = null;
     // Crea row en la tabla fiscalizacion
     await newInspection(info, filePathSupabase);
-    // toast.success("Información guardada");
-    // Vuelve al buscador
     router.replace("/buscador");
   }
 
