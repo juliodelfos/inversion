@@ -57,6 +57,7 @@ const schema = ref([
     "inner-class": "!w-[210px]",
     "on-item-wrapper-class": "!basis-[30px]",
     "off-item-wrapper-class": "!basis-[30px]",
+    "label-class": "!text-color-[#003D80]",
     validation: "required",
   },
   {
@@ -70,6 +71,7 @@ const schema = ref([
     "inner-class": "!w-[210px]",
     "on-item-wrapper-class": "!basis-[30px]",
     "off-item-wrapper-class": "!basis-[30px]",
+    "label-class": "!text-color-[#003D80]",
     validation: "required",
   },
   {
@@ -83,6 +85,7 @@ const schema = ref([
     "inner-class": "!w-[210px]",
     "on-item-wrapper-class": "!basis-[30px]",
     "off-item-wrapper-class": "!basis-[30px]",
+    "label-class": "!text-color-[#003D80]",
     validation: "required",
   },
 ]);
