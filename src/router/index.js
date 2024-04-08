@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import authGuard from "../utils/authGuard";
+import { userSessionStore } from "../stores/userSession";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,9 +11,14 @@ const router = createRouter({
       component: () => import("../views/Login.vue"),
     },
     {
+      path: "/olvide-contrasena",
+      name: "olvide-contrasena",
+      component: () => import("../views/ForgotPassword.vue"),
+    },
+    {
       path: "/nueva-contrasena",
       name: "nueva-contrasena",
-      component: () => import("../views/ForgotPassword.vue"),
+      component: () => import("../views/ChangePassword.vue"),
     },
     {
       path: "/crear-usuario",
@@ -58,6 +63,20 @@ const router = createRouter({
       },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const userSession = userSessionStore();
+
+  if (to.meta.needsAuth) {
+    if (userSession.session) {
+      return next();
+    } else {
+      return next("/");
+    }
+  }
+
+  return next();
 });
 
 export default router;
