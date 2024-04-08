@@ -38,7 +38,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/fiscalizacion/:region/:nombres/:paterno/:materno/:ejecutor/:rut",
+      path: "/fiscalizacion/:region/:comuna/:nombres/:paterno/:materno/:ejecutor/:rut",
       name: "fiscalizacion",
       component: () => import("../views/Inspection.vue"),
       meta: {
@@ -47,7 +47,7 @@ const router = createRouter({
     },
     // Survey routes
     {
-      path: "/encuesta/:region/:nombres/:paterno/:materno/:ejecutor/:rut",
+      path: "/encuesta/:region/:comuna/:nombres/:paterno/:materno/:ejecutor/:rut",
       name: "encuesta",
       component: () => import("../views/Survey.vue"),
       meta: {

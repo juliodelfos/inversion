@@ -32,7 +32,7 @@ const info = {
   herramientas: false,
   condiciones_espacio_laboral: false,
   logo_proempleo: false,
-  comuna: null,
+  comuna: route.params.comuna,
   region: route.params.region,
   mes: "test",
   nombres: route.params.nombres,
