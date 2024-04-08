@@ -1,7 +1,7 @@
 <script setup>
 // Imports
 import { ref } from "vue";
-import { FwbInput, FwbButton, FwbToggle } from "flowbite-vue";
+import { FwbInput, FwbButton } from "flowbite-vue";
 import { searchWorkerByRut } from "../functions/searchWorkerByRUT";
 import { fromObject2Array } from "../functions/fromObject2Array";
 // import Menu from './Menu.vue';
