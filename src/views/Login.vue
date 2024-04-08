@@ -74,7 +74,7 @@
                   </div>
                 </div> -->
                 <router-link
-                  to="/forgot-password"
+                  to="/nueva-contrasena"
                   class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >¿Olvidaste tu contraseña?</router-link
                 >
