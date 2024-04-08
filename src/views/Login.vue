@@ -95,10 +95,10 @@
   
   <script setup>
   import { ref, onBeforeMount } from "vue";
-//   import { login } from "@/utils/session/auth";
+  import { login } from "../functions/login"
 //   import { sendRecoveryMail } from "@/utils/session/sendRecoveryMail";
 //   import { checkUserSession } from "@/utils/session/checkUserSession";
-  import { supabase } from "../supabase";
+  // import { supabase } from "../supabase";
   
   const email = ref("");
   const password = ref("");
