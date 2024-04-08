@@ -12,7 +12,6 @@ const uploadFileToSupabase = async (pathFile, file) => {
       return;
     }
 
-    console.log("File uploaded: ", data);
     return data;
   } catch (error) {
     console.error("Error uploading file: ", error.message);
