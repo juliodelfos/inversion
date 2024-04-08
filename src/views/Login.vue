@@ -73,11 +73,11 @@
                     >
                   </div>
                 </div> -->
-                            <router-link
+                            <!-- <router-link
                                 to="/olvide-contrasena"
                                 class="text-sm text-primary-600 hover:underline dark:text-primary-500 font-light"
                                 >¿Olvidaste tu contraseña?</router-link
-                            >
+                            > -->
                         </div>
                         <button
                             type="submit"
@@ -97,7 +97,6 @@ import { ref, onBeforeMount } from "vue";
 import { login } from "../functions/login";
 //   import { sendRecoveryMail } from "@/utils/session/sendRecoveryMail";
 import { checkUserSession } from "../functions/checkUserSession";
-// import { supabase } from "../supabase";
 
 const email = ref("");
 const password = ref("");
