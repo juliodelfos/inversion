@@ -56,7 +56,7 @@ const router = createRouter({
     },
     // Otras
     {
-      path: "/404",
+      path: "/:pathMatch(.*)*",
       name: "not-found",
       component: () => import("../views/NotFound.vue"),
     },
