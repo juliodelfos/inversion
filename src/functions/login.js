@@ -1,5 +1,8 @@
 import { supabase } from "@/supabase";
 import router from "../router/index"
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const login = async (email, password) => {
   try {
@@ -14,17 +17,11 @@ const login = async (email, password) => {
 
       // Optional: Store user data or update state for later use
       // localStorage.setItem("user", JSON.stringify(data));
-    } else {
-      // Handle specific errors based on error message or code
-      if (error.code === "invalid_credentials") {
-        throw new Error("Invalid email or password");
-      } else {
-        throw new Error("An error occurred: " + error.message);
-      }
-    }
+    } 
+    toast.error('Credenciales incorrectas')
   } catch (error) {
     // Handle any unforeseen errors gracefully
-    console.error("Login error:", error);
+    toast.error("Error en el ingreso:", error, { timeout: false });
     // Display a user-friendly error message or redirect to appropriate page
   }
 };

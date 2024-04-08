@@ -1,4 +1,7 @@
 import { supabase } from "../supabase";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const newInspection = async (info, file) => {
   try {
@@ -37,10 +40,11 @@ const newInspection = async (info, file) => {
       comentario_herramientas: info.comentario_herramientas,
     });
 
-    console.log(`Supervisión de ${info.RutSDV} insertado exitosamente`);
+    toast.success(`Supervisión del RUT ${info.RutSDV} registrada exitosamente`);
 
     if (error) {
-      console.error("Error insertando supervisión: ", error.message);
+      toast.error("Error registrando supervisión, inténtalo nuevamente")
+      // console.error("Error insertando supervisión: ", error.message);
       return;
     }
 
