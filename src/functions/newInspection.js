@@ -1,6 +1,6 @@
 import { supabase } from "../supabase";
 
-const newInspection = async (info) => {
+const newInspection = async (info, file) => {
   try {
     const { data, error } = await supabase.from("fiscalizacion").insert({
       presencia: info.presencia,
@@ -16,8 +16,7 @@ const newInspection = async (info) => {
       funcion_contrato: info.funcion_contrato,
       fiscalizador: info.fiscalizador,
       RutSDV: info.RutSDV,
-      /* file:
-        info.acumuladorURLs.value.length > 0 ? acumuladorURLs.value : info.null, */ // por mientras vacío
+      file: file,
       //   comentario_funcion_contrato: info.comentario_funcion_contrato, -> no por ahora
       comentario_utiliza_epp: info.comentario_utiliza_epp,
       errorDatos: info.errorDatos,
@@ -31,8 +30,7 @@ const newInspection = async (info) => {
       comuna: info.comuna,
       region: info.region,
       // firmaImg: info.imagenFirma.value, -> ya no aplicaría
-      mes:
-        info.datetime.split("-")[1],
+      mes: info.datetime.split("-")[1],
       nombres: info.nombres,
       apellidos: info.apellidos,
       ejecutor: info.ejecutor,
