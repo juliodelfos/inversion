@@ -37,19 +37,19 @@ const schema = [
   //   },
   //   validation: "required|time",
   // },
-  {
-    $formkit: "select",
-    autocomplete: true,
-    name: "comuna",
-    id: "comuna",
-    label: "Comuna en que trabaja",
-    placeholder: "Escribe la comuna",
-    options: comunas,
-    labelClass: "labels",
-    classes: {
-      help: "textoAzul",
-    },
-  },
+  // {
+  //   $formkit: "select",
+  //   autocomplete: true,
+  //   name: "comuna",
+  //   id: "comuna",
+  //   label: "Comuna en que trabaja",
+  //   placeholder: "Escribe la comuna",
+  //   options: comunas,
+  //   labelClass: "labels",
+  //   classes: {
+  //     help: "textoAzul",
+  //   },
+  // },
   {
     $formkit: "toggle",
     name: "presencia",
