@@ -54,6 +54,12 @@ const router = createRouter({
         needsAuth: true,
       },
     },
+    // Otras
+    {
+      path: "/404",
+      name: "not-found",
+      component: () => import("../views/NotFound.vue"),
+    },
   ],
 });
 
