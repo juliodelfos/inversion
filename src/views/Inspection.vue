@@ -41,37 +41,42 @@ const info = {
 };
 
 const insertRow = async (info) => {
-  // Sube fotos a Supabase
-  const pathfile = `${deleteWeirdCharacters(
-    route.params.region
-  )}/${deleteWeirdCharacters(info.comuna).replace(/ /g, "")}/${info.RutSDV}.${
-    info.file[0].name.split(".")[1] // extensión
-  }`;
+  if (info.file.length !== 0) {
+    // Sube fotos a Supabase
+    const pathfile = `${deleteWeirdCharacters(
+      route.params.region
+    )}/${deleteWeirdCharacters(info.comuna).replace(/ /g, "")}/${info.RutSDV}.${info.file[0].name.split(".")[1] // extensión
+      }`;
 
-  await uploadFileToSupabase(pathfile, info.file);
+    await uploadFileToSupabase(pathfile, info.file);
 
-  const filePathSupabase = `${
-    import.meta.env.VITE_SUPABASE_URL
-  }/storage/v1/object/public/fiscalizaciones/${pathfile}`;
+    const filePathSupabase = `${import.meta.env.VITE_SUPABASE_URL
+      }/storage/v1/object/public/fiscalizaciones/${pathfile}`;
 
-  // Crea row en la tabla fiscalizacion
-  await newInspection(info, filePathSupabase);
-  // toast.success("Información guardada");
-  // Vuelve al buscador
-  router.replace("/buscador");
+    // Crea row en la tabla fiscalizacion
+    await newInspection(info, filePathSupabase);
+    // toast.success("Información guardada");
+    // Vuelve al buscador
+    router.replace("/buscador");
+  } else {
+    const filePathSupabase = null;
+    // Crea row en la tabla fiscalizacion
+    await newInspection(info, filePathSupabase);
+    // toast.success("Información guardada");
+    // Vuelve al buscador
+    router.replace("/buscador");
+  }
+
+
 };
 </script>
 
 <template>
   <!-- <Menu></Menu> -->
-  <main
-    class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7"
-  >
+  <main class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7">
     <div>
       <FormKit type="form" v-model="info" @submit="insertRow">
-        <h1
-          class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6"
-        >
+        <h1 class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6">
           Registrar supervisión
         </h1>
         <FormKitSchema :schema="schema" />
