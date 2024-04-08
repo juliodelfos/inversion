@@ -47,7 +47,11 @@
             </button>
           </form>
           <router-link to="/">
-            <p class="text-center text-primary-600 font-light text-sm pt-4 hover:underline dark:text-primary-500">Regresar</p>
+            <p
+              class="text-center text-primary-600 font-light text-sm pt-4 hover:underline dark:text-primary-500"
+            >
+              Regresar
+            </p>
           </router-link>
         </div>
       </div>
@@ -57,19 +61,19 @@
 
 <script setup>
 import { ref } from "vue";
-//   import { sendRecoveryMail } from "../utils/session/sendRecoveryMail";
+import { sendRecoveryMail } from "../functions/sendRecoveryMail";
 
 const email = ref("");
 const mailSended = ref(false);
 
-//   const enviarMail = () => {
-//     if (email.value) {
-//       sendRecoveryMail(email.value);
-//       setTimeout(() => {
-//         mailSended.value = true;
-//       }, 1000);
-//     } else {
-//       alert("Error");
-//     }
-//   };
+const enviarMail = async () => {
+  try {
+    await sendRecoveryMail(email.value);
+    // setTimeout(() => {
+    //     mailSended.value = true;
+    // }, 1000);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
