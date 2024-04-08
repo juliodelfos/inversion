@@ -75,9 +75,10 @@
                 </div> -->
                 <router-link
                   to="/nueva-contrasena"
-                  class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  class="text-sm  text-primary-600 hover:underline dark:text-primary-500 font-light"
                   >¿Olvidaste tu contraseña?</router-link
                 >
+                
               </div>
               <button
                 type="submit"
