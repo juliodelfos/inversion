@@ -232,7 +232,7 @@ const schema = [
   },
   {
     $formkit: "file",
-    name: "files",
+    name: "file",
     label: "Cargar archivos",
     labelClass: "labels",
     classes: {
@@ -240,7 +240,7 @@ const schema = [
       help: "textoAzul",
     },
     accept: ".jpg, .jpeg, .png, .gif, .heif, .hevc, .docx, .xlsx",
-    multiple: "true",
+    multiple: "false",
     // validation: "required|file",
   },
 ];
