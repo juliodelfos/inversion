@@ -14,15 +14,11 @@ const login = async (email, password) => {
     if (data) {
       // Successful login
       router.push("/buscador");
-
-      // Optional: Store user data or update state for later use
-      // localStorage.setItem("user", JSON.stringify(data));
     } 
-    toast.error('Credenciales incorrectas')
+    error ? toast.error('Credenciales incorrectas') : null;
   } catch (error) {
-    // Handle any unforeseen errors gracefully
-    toast.error("Error en el ingreso:", error, { timeout: false });
-    // Display a user-friendly error message or redirect to appropriate page
+    console.log(error)
+    toast.error("Error en el ingreso. Inténtalo nuevamente");
   }
 };
 
