@@ -45,14 +45,6 @@ const router = createRouter({
         needsAuth: true,
       },
     },
-    {
-      path: "/descargar-reporte",
-      name: "descargar-reporte",
-      component: () => import("../views/DownloadReport.vue"),
-      meta: {
-        needsAuth: true,
-      },
-    },
     // Survey routes
     {
       path: "/encuesta/:region/:nombres/:paterno/:materno/:ejecutor/:rut",
