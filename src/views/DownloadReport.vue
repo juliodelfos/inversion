@@ -4,22 +4,19 @@
             <FormKit type="form" v-model="info" @submit="fetchExcelFile">
                 <div class="pb-4">
                     <h1
-                        class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6"
+                        class="sm:text-[1.4rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6"
                     >
                         Descargar reporte
                     </h1>
-                    <p class="text-md font-light">
+                    <p class="text-md font-light pb-1 text-justify">
                         El siguiente formulario entrega un reporte en formato
                         .xlsx (Excel) de las fiscalizaciones del mes y región
                         que selecciones.
                     </p>
-                    <p class="text-md font-light">
+                    <p class="text-md font-light text-justify">
                         Sólo debes escribir el número del mes en formato de dos
                         dígitos ("05" para mayo, por ejemplo), y seleccionar la
                         región deseada.
-                    </p>
-                    <p class="text-md font-light">
-                        Sólo disponible en versión escritorio.
                     </p>
                 </div>
                 <FormKitSchema :schema="schema" />

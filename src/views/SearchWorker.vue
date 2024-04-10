@@ -34,7 +34,7 @@ const searchByRut = (rutSinDV) => {
             </h1>
         </div>
 
-        <section class="w-11/12 sm:w-3/5 md:w-96 lg:w-4/12">
+        <section class="w-11/12 sm:w-3/5 md:w-96 lg:w-3/6">
             <!-- Buscador -->
             <div class="pb-8">
                 <fwb-input
