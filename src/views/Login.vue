@@ -100,7 +100,7 @@ import { checkUserSession } from "../functions/checkUserSession";
 
 const email = ref("");
 const password = ref("");
-const remember = ref("");
+// const remember = ref("");
 
 // Ingreso
 const auth = async () => {
