@@ -7,10 +7,7 @@ const sendRecoveryMail = async (email) => {
   // const hostname = window.location.hostname;
   // console.log(email);
   try {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      // redirectTo: `${protocol}/${port}/${hostname}/reset-password`,
-      redirectTo: "http://localhost:5173/nueva-contrasena",
-    });
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email);
     console.log(data);
     console.log(error.message);
     return data;
