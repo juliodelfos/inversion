@@ -9,9 +9,17 @@ import Menu from "./components/Menu.vue";
 import router from "./router";
 import { onBeforeMount } from "vue";
 
-const ruta = router.afterEach((to, from) =>
-    to.name !== "login" ? (show.value = true) : (show.value = false),
-);
+const ruta = router.afterEach((to, from) => {
+    if (to.name !== "login") {
+        show.value = true
+    }
+    else if (to.name !== "login") {
+        show.value = true
+    } else {
+        show.value = false
+    }
+})
+
 
 let show = ref(false);
 
