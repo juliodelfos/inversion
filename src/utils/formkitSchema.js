@@ -112,7 +112,7 @@ const schema = [
   },
   {
     $formkit: "textarea",
-    if: "$get(utiliza_epp).value",
+    // if: "$get(utiliza_epp).value",
     name: "comentario_utiliza_epp",
     label: "¿Por qué motivo no utiliza sus EPP?",
     labelClass: "labels",
@@ -132,7 +132,7 @@ const schema = [
   },
   {
     $formkit: "textarea",
-    if: "$get(herramientas).value",
+    // if: "$get(herramientas).value",
     name: "comentario_herramientas",
     label: "¿De qué insumo carece?",
     labelClass: "labels",
