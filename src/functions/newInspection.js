@@ -48,7 +48,7 @@ const newInspection = async (info, file) => {
       comuna: info.comuna,
       region: info.region,
       // firmaImg: info.imagenFirma.value, -> ya no aplicaría
-      mes: info.datetime.split("-")[1],
+      mes: info.mes,
       nombres: info.nombres,
       apellidos: info.apellidos,
       ejecutor: info.ejecutor,

@@ -8,8 +8,6 @@ import { useRoute } from "vue-router";
 import router from "../router";
 const route = useRoute();
 
-// import Menu from './Menu.vue';
-
 const info = {
     presencia: false,
     date: null, // fecha y hora
@@ -64,7 +62,7 @@ const insertRow = async (info) => {
 <template>
     <!-- <Menu></Menu> -->
     <main
-        class="bg-blue-100 grid h-auto place-items-center text-[#003D80] px-4 pt-4 pb-7"
+        class="bg-blue-100 grid h-auto justify-items-center text-[#003D80] px-4 pt-4 pb-7"
     >
         <div>
             <FormKit type="form" v-model="info" @submit="insertRow">
@@ -78,22 +76,3 @@ const insertRow = async (info) => {
         </div>
     </main>
 </template>
-
-<style scoped>
-.labels {
-    font-size: 0.9rem;
-}
-
-.textoAzul {
-    color: #003d80;
-}
-
-.canvas-contenedor {
-    width: 85%;
-    height: 85%;
-    padding-top: 0.7rem;
-    margin: 0 1.3rem 1.3rem 1.3rem;
-    display: flex;
-    justify-content: center;
-}
-</style>

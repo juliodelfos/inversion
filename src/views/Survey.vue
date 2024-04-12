@@ -1,5 +1,5 @@
 <template>
-  <main class="bg-blue-100 grid h-screen place-items-center text-[#003D80] px-4 pt-4 pb-7">
+  <main class="bg-blue-100 grid h-screen justify-items-center text-[#003D80] px-4 pb-7 pt-4">
     <FormKit type="form" #default="{ value }" :actions="true" v-model="rankings" @submit="nuevaEncuesta">
       <h1 class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6">
         Encuesta de satisfacción
