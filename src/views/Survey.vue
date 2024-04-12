@@ -1,17 +1,7 @@
 <template>
-  <main
-    class="bg-blue-100 grid h-screen place-items-center text-[#003D80] px-4 pt-4 pb-7"
-  >
-    <FormKit
-      type="form"
-      #default="{ value }"
-      :actions="true"
-      v-model="rankings"
-      @submit="nuevaEncuesta"
-    >
-      <h1
-        class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6"
-      >
+  <main class="bg-blue-100 grid h-screen place-items-center text-[#003D80] px-4 pt-4 pb-7">
+    <FormKit type="form" #default="{ value }" :actions="true" v-model="rankings" @submit="nuevaEncuesta">
+      <h1 class="sm:text-[1.2rem] md:text-[1.4rem] font-bold text-center leading-normal pb-6">
         Encuesta de satisfacción
       </h1>
       <FormKitSchema :schema="schema" />
@@ -88,6 +78,12 @@ const schema = ref([
     "label-class": "!text-[#003D80]",
     validation: "required",
   },
+  {
+    $formkit: "textarea",
+    name: "comentario_encuesta",
+    label: "Comentarios adicionales (opcional)", placeholder: "Comentarios opcionales",
+    "label-class": "!text-[#003D80]",
+  },
 ]);
 
 const nuevaEncuesta = async () => {
@@ -97,6 +93,7 @@ const nuevaEncuesta = async () => {
     pregunta_2: rankings.value.pregunta_2,
     pregunta_3: rankings.value.pregunta_3,
     region: route.params.region,
+    comentario_encuesta: rankings.value.comentario_encuesta,
   };
   await newSurvey(data);
   router.replace(
