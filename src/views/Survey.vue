@@ -12,10 +12,12 @@
 <script setup>
 import { ref } from "vue";
 import { newSurvey } from "../functions/newSurvey";
-import { useRoute } from "vue-router";
 import router from "../router";
+import { useRoute } from "vue-router";
 const route = useRoute();
 const rankings = ref([]);
+const errorDatos = ref(route.query.error)
+const nextRouter = ref(`/supervision/${route.params.region}/${route.params.comuna}/${route.params.nombres}/${route.params.paterno}/${route.params.materno}/${route.params.ejecutor}/${route.params.rut}`)
 
 const preguntas = [
   {
@@ -81,7 +83,8 @@ const schema = ref([
   {
     $formkit: "textarea",
     name: "comentario_encuesta",
-    label: "Comentarios adicionales (opcional)", placeholder: "Comentarios opcionales",
+    label: "Comentarios adicionales (opcional)",
+    placeholder: "Comentarios opcionales",
     "label-class": "!text-[#003D80]",
   },
 ]);
@@ -96,8 +99,6 @@ const nuevaEncuesta = async () => {
     comentario_encuesta: rankings.value.comentario_encuesta,
   };
   await newSurvey(data);
-  router.replace(
-    `/supervision/${route.params.region}/${route.params.comuna}/${route.params.nombres}/${route.params.paterno}/${route.params.materno}/${route.params.ejecutor}/${route.params.rut}?error=${route.query.error}`
-  );
+  router.push({ path: nextRouter.value, query: { error: errorDatos.value }, replace: true });
 };
 </script>
