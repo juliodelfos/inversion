@@ -3,6 +3,21 @@ import { useToast } from "vue-toastification";
 
 const toast = useToast();
 
+async function getUserEmail() {
+  try {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error) {
+      toast.error("Error obteniendo email de usuario: ", error.message);
+      return;
+    }
+    return data.user.email;
+  } catch (error) {
+    console.error("Error obteniendo email de usuario: ", error.message);
+    return;
+  }
+}
+
 const newInspection = async (info, file) => {
   try {
     const { data, error } = await supabase.from("fiscalizacion").insert({
@@ -17,7 +32,7 @@ const newInspection = async (info, file) => {
       supervision_ejecutora: info.supervision_ejecutora,
       observaciones: info.observaciones,
       funcion_contrato: info.funcion_contrato,
-      fiscalizador: info.fiscalizador,
+      fiscalizador: await getUserEmail(),
       RutSDV: info.RutSDV,
       file: file,
       //   comentario_funcion_contrato: info.comentario_funcion_contrato, -> no por ahora
@@ -43,7 +58,7 @@ const newInspection = async (info, file) => {
     toast.success(`Supervisión del RUT ${info.RutSDV} registrada exitosamente`);
 
     if (error) {
-      toast.error("Error registrando supervisión, inténtalo nuevamente")
+      toast.error("Error registrando supervisión, inténtalo nuevamente");
       // console.error("Error insertando supervisión: ", error.message);
       return;
     }
