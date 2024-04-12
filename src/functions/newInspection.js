@@ -53,6 +53,7 @@ const newInspection = async (info, file) => {
       apellidos: info.apellidos,
       ejecutor: info.ejecutor,
       comentario_herramientas: info.comentario_herramientas,
+      prevencion_riesgos: info.prevencion_riesgos,
     });
 
     toast.success(`Supervisión del RUT ${info.RutSDV} registrada exitosamente`);

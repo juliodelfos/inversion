@@ -31,6 +31,7 @@ const info = {
     nombres: route.params.nombres,
     apellidos: route.params.paterno + " " + route.params.materno,
     ejecutor: route.params.ejecutor,
+    prevencion_riesgos: false,
 };
 
 const insertRow = async (info) => {

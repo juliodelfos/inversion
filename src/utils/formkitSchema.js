@@ -164,6 +164,14 @@ const schema = [
   },
   {
     $formkit: "toggle",
+    name: "prevencion_riesgos",
+    id: "prevencion_riesgos",
+    label: "Charla de prevención de riesgos",
+    "label-class": "!text-[#003D80]",
+    "help-class": "!text-[#003D80]",
+  },
+  {
+    $formkit: "toggle",
     name: "fiscalizacion_ejecutora",
     id: "fiscalizacion_ejecutora",
     label: "¿Ejecutora ha supervisado?",
