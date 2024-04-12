@@ -127,9 +127,7 @@ const searchByRut = (rutSinDV) => {
                                 <FormKit
                                     label="¿Hay algún error en la información?"
                                     type="toggle"
-                                    off-value-label="No"
-                                    on-value-label="Sí"
-                                    value-label-display="inner"
+                                    value-label-display="hidden"
                                     v-model="informaError"
                                 />
                             </dd>
