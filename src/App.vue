@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { supabase } from "./supabase";
 import { RouterView } from "vue-router";
 import { initFlowbite } from "flowbite";
@@ -9,16 +9,17 @@ import Menu from "./components/Menu.vue";
 import router from "./router";
 import { onBeforeMount } from "vue";
 
-const ruta = router.afterEach((to, from) => {
-    if (to.name !== "login") {
-        show.value = true
+
+watch(
+    () => router.currentRoute.value.name,
+    (to) => {
+        if (to !== "login" && to !== "not-found") {
+            show.value = true;
+        } else {
+            show.value = false;
+        }
     }
-    else if (to.name !== "login") {
-        show.value = true
-    } else {
-        show.value = false
-    }
-})
+);
 
 
 let show = ref(false);
@@ -33,9 +34,6 @@ supabase.auth.onAuthStateChange((event, session) => {
     userSession.session = session;
 });
 
-onBeforeMount(() => {
-    console.log(`ruta: ${ruta}`);
-});
 
 onMounted(() => {
     initFlowbite();

@@ -7,9 +7,7 @@ const checkUserSession = async () => {
       data: { session },
       error,
     } = await supabase.auth.getSession();
-    console.log(
-      session == null ? `Usuario debe iniciar sesión` : router.push("/buscador")
-    );
+    session == null ? `Usuario debe iniciar sesión` : router.push("/buscador");
     error ? console.log(error) : null;
   } catch (error) {
     conhsole.log(error);
