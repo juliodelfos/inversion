@@ -61,7 +61,6 @@ const insertRow = async (info) => {
 </script>
 
 <template>
-    <!-- <Menu></Menu> -->
     <main
         class="bg-blue-100 grid h-auto justify-items-center text-[#003D80] px-4 pt-4 pb-7"
     >
