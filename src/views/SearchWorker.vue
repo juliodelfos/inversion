@@ -4,25 +4,30 @@ import { ref } from "vue";
 import { FwbInput, FwbButton } from "flowbite-vue";
 import { searchWorkerByRut } from "../functions/searchWorkerByRUT";
 import { fromObject2Array } from "../functions/fromObject2Array";
-// import Menu from './Menu.vue';
+import SearchSkeleton from "@/components/SearchSkeleton.vue";
 
 // Variables
 const rutSinDV = ref("");
 const resultado = ref(null);
 const informaError = ref(false);
 const WORKER = ref(null);
+let searching = false;
 
 //Functions
-const searchByRut = (rutSinDV) => {
-    searchWorkerByRut(rutSinDV).then((res) => {
+async function searchByRut(rutSinDV) {
+    try {
+        searching = false;
+        const res = await searchWorkerByRut(rutSinDV);
         resultado.value = res;
         WORKER.value = fromObject2Array(res);
-    });
-};
+    } catch (error) {
+        searching = true;
+        console.error("Error buscando RUT beneficiaria/o");
+    }
+}
 </script>
 
 <template>
-    <!-- <Menu></Menu> -->
     <main
         class="bg-blue-100 text-[#003D80] px-4 pt-4 pb-7 flex flex-col min-h-screen items-center"
     >
@@ -68,6 +73,9 @@ const searchByRut = (rutSinDV) => {
                 </fwb-input>
             </div>
 
+            <!-- Buscador -->
+            <SearchSkeleton v-show="searching" :rut="rutSinDV" />
+
             <!-- Datos personales -->
             <div
                 class="overflow-hidden bg-white shadow sm:rounded-lg w-auto"
@@ -83,6 +91,7 @@ const searchByRut = (rutSinDV) => {
                     </p>
                 </div>
 
+                <!-- Trabajador encontrado -->
                 <div class="border-t border-gray-200">
                     <dl>
                         <div
