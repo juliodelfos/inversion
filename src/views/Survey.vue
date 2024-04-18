@@ -22,6 +22,7 @@
 <script setup>
 import { ref } from "vue";
 import { newSurvey } from "../functions/newSurvey";
+import {supabase} from "../supabase"
 import router from "../router";
 import { useRoute } from "vue-router";
 const route = useRoute();
@@ -117,7 +118,23 @@ const schema = ref([
     },
 ]);
 
+async function getUserEmail() {
+  try {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error) {
+      toast.error("Error obteniendo email de usuario: ", error.message);
+      return;
+    }
+    return data.user.email;
+  } catch (error) {
+    console.error("Error obteniendo email de usuario: ", error.message);
+    return;
+  }
+}
+
 const nuevaEncuesta = async () => {
+    // Si persona está presente
     if (rankings.value.presencia == false) {
         const data = {
             RutSDV: route.params.rut,
@@ -126,6 +143,8 @@ const nuevaEncuesta = async () => {
             pregunta_3: rankings.value.pregunta_3,
             region: route.params.region,
             comentario_encuesta: rankings.value.comentario_encuesta,
+            presencia: true,
+            fiscalizador: await getUserEmail(),
         };
         await newSurvey(data);
         router.push({
@@ -133,6 +152,7 @@ const nuevaEncuesta = async () => {
             query: { error: errorDatos.value },
             replace: true,
         });
+        // Si persona no está
     } else {
         const data = {
             RutSDV: route.params.rut,
@@ -141,6 +161,8 @@ const nuevaEncuesta = async () => {
             pregunta_3: 1,
             region: route.params.region,
             comentario_encuesta: "Sin presencia",
+            presencia: false,
+            fiscalizador: await getUserEmail(),
         };
         await newSurvey(data);
         router.push({
