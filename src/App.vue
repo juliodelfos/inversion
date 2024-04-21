@@ -7,8 +7,6 @@ import { onMounted } from "vue";
 import { userSessionStore } from "./stores/userSession";
 import Menu from "./components/Menu.vue";
 import router from "./router";
-import { onBeforeMount } from "vue";
-
 
 watch(
     () => router.currentRoute.value.name,
@@ -18,13 +16,10 @@ watch(
         } else {
             show.value = false;
         }
-    }
+    },
 );
 
-
 let show = ref(false);
-
-// const ruta = router.currentRoute.value.name;
 
 const userSession = userSessionStore();
 
@@ -33,7 +28,6 @@ let session = ref("");
 supabase.auth.onAuthStateChange((event, session) => {
     userSession.session = session;
 });
-
 
 onMounted(() => {
     initFlowbite();

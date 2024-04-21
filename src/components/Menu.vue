@@ -23,6 +23,8 @@
                         />
                     </DisclosureButton>
                 </div>
+
+                <!-- PC -->
                 <div
                     class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
                 >
@@ -33,7 +35,7 @@
                                 :key="item.name"
                                 :to="item.to"
                                 :class="[
-                                    item.current
+                                    item.to == $route.path
                                         ? 'bg-gray-900 text-white'
                                         : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                     'rounded-md px-3 py-2 text-sm font-medium',
@@ -57,7 +59,7 @@
                     :as="routerLink"
                     :to="item.to"
                     :class="[
-                        item.current
+                        item.to == $route.path
                             ? 'bg-gray-900 text-white'
                             : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                         'block rounded-md px-3 py-2 text-base font-medium',
@@ -76,22 +78,23 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { resolveComponent } from "vue";
 
 const navigation = [
-    { name: "Buscar", to: "/buscador", current: true },
-    { name: "Descargar informe", to: "descargar-reporte", current: false },
-    // { name: 'Administración', to: '/admin', current: false },
+    { name: "Buscar", to: "/buscador", current: null },
+    { name: "Descargar informe", to: "/descargar-reporte", current: null },
+    { name: "Crear usuario", to: "/crear-usuario", current: null },
 ];
 
 const routeToIndexMapping = {
-    "/buscar": 0,
-    "/descargar": 1,
-    // '/admin': 2,
+    "/buscador": 0,
+    "/descargar-reporte": 1,
+    "/crear-usuario": 2,
 };
 
 const currentPath = window.location.pathname;
+
 const currentIndex =
     routeToIndexMapping[currentPath] !== undefined
         ? routeToIndexMapping[currentPath]
-        : 2;
+        : 3;
 
 navigation.forEach((navigationItem, index) => {
     navigationItem.current = index === currentIndex;
