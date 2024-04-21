@@ -33,6 +33,7 @@ let show = ref(false);
 
 onMounted(() => {
     initFlowbite();
+    userSessionStore();
 });
 </script>
 

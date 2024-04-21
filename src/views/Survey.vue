@@ -22,10 +22,59 @@
 <script setup>
 import { ref } from "vue";
 import { newSurvey } from "../functions/newSurvey";
-import {supabase} from "../supabase"
 import router from "../router";
 import { useRoute } from "vue-router";
+import { userSessionStore } from "../stores/userSession";
+
+// Se llama al estado de Pinia y obtiene usuario
+const {
+    session: {
+        user: { email: userEmail },
+    },
+} = userSessionStore();
+
 const route = useRoute();
+
+const nuevaEncuesta = async () => {
+    // Si persona está presente
+    if (rankings.value.presencia == false) {
+        const data = {
+            RutSDV: route.params.rut,
+            pregunta_1: rankings.value.pregunta_1,
+            pregunta_2: rankings.value.pregunta_2,
+            pregunta_3: rankings.value.pregunta_3,
+            region: route.params.region,
+            comentario_encuesta: rankings.value.comentario_encuesta,
+            presencia: true,
+            fiscalizador: userEmail,
+        };
+        await newSurvey(data);
+        router.push({
+            path: nextRouter.value,
+            query: { error: errorDatos.value },
+            replace: true,
+        });
+        // Si persona no está
+    } else {
+        const data = {
+            RutSDV: route.params.rut,
+            pregunta_1: 1,
+            pregunta_2: 1,
+            pregunta_3: 1,
+            region: route.params.region,
+            comentario_encuesta: "Sin presencia",
+            presencia: false,
+            fiscalizador: userEmail,
+        };
+        await newSurvey(data);
+        router.push({
+            path: nextRouter.value,
+            query: { error: errorDatos.value },
+            replace: true,
+        });
+    }
+};
+
 const rankings = ref({
     presencia: false,
     pregunta_1: 0,
@@ -33,6 +82,7 @@ const rankings = ref({
     pregunta_3: 0,
     comentario_encuesta: "",
 });
+
 const errorDatos = ref(route.query.error);
 const nextRouter = ref(
     `/supervision/${route.params.region}/${route.params.comuna}/${route.params.nombres}/${route.params.paterno}/${route.params.materno}/${route.params.ejecutor}/${route.params.rut}`,
@@ -117,59 +167,4 @@ const schema = ref([
         "label-class": "!text-[#003D80]",
     },
 ]);
-
-async function getUserEmail() {
-  try {
-    const { data, error } = await supabase.auth.getUser();
-
-    if (error) {
-      toast.error("Error obteniendo email de usuario: ", error.message);
-      return;
-    }
-    return data.user.email;
-  } catch (error) {
-    console.error("Error obteniendo email de usuario: ", error.message);
-    return;
-  }
-}
-
-const nuevaEncuesta = async () => {
-    // Si persona está presente
-    if (rankings.value.presencia == false) {
-        const data = {
-            RutSDV: route.params.rut,
-            pregunta_1: rankings.value.pregunta_1,
-            pregunta_2: rankings.value.pregunta_2,
-            pregunta_3: rankings.value.pregunta_3,
-            region: route.params.region,
-            comentario_encuesta: rankings.value.comentario_encuesta,
-            presencia: true,
-            fiscalizador: await getUserEmail(),
-        };
-        await newSurvey(data);
-        router.push({
-            path: nextRouter.value,
-            query: { error: errorDatos.value },
-            replace: true,
-        });
-        // Si persona no está
-    } else {
-        const data = {
-            RutSDV: route.params.rut,
-            pregunta_1: 1,
-            pregunta_2: 1,
-            pregunta_3: 1,
-            region: route.params.region,
-            comentario_encuesta: "Sin presencia",
-            presencia: false,
-            fiscalizador: await getUserEmail(),
-        };
-        await newSurvey(data);
-        router.push({
-            path: nextRouter.value,
-            query: { error: errorDatos.value },
-            replace: true,
-        });
-    }
-};
 </script>

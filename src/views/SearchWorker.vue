@@ -4,7 +4,10 @@ import { ref } from "vue";
 import { FwbInput, FwbButton } from "flowbite-vue";
 import { searchWorkerByRut } from "../functions/searchWorkerByRUT";
 import { fromObject2Array } from "../functions/fromObject2Array";
-import SearchSkeleton from "@/components/SearchSkeleton.vue";
+// import SearchSkeleton from "@/components/SearchSkeleton.vue";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 // Variables
 const rutSinDV = ref("");
@@ -22,7 +25,7 @@ async function searchByRut(rutSinDV) {
         WORKER.value = fromObject2Array(res);
     } catch (error) {
         searching = true;
-        console.error("Error buscando RUT beneficiaria/o");
+        toast.warning(`No se encontró  RUT ${rutSinDV}`);
     }
 }
 </script>
@@ -75,7 +78,7 @@ async function searchByRut(rutSinDV) {
             </div>
 
             <!-- Buscador -->
-            <SearchSkeleton v-show="searching" :rut="rutSinDV" />
+            <!-- <SearchSkeleton v-show="searching" :rut="rutSinDV" /> -->
 
             <!-- Datos personales -->
             <div

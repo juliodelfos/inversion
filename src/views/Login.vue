@@ -1,3 +1,23 @@
+<script setup>
+import { ref } from "vue";
+import { login } from "../functions/login";
+//   import { sendRecoveryMail } from "@/utils/session/sendRecoveryMail";
+// import { checkUserSession } from "../functions/checkUserSession";
+
+const email = ref("");
+const password = ref("");
+// const remember = ref("");
+
+// Ingreso
+const auth = () => {
+    login(email.value, password.value);
+};
+
+// onBeforeMount(() => {
+//     checkUserSession();
+// });
+</script>
+
 <template>
     <section class="bg-blue-100 text-[#003D80] dark:bg-gray-900 h-screen">
         <div
@@ -90,23 +110,3 @@
         </div>
     </section>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import { login } from "../functions/login";
-//   import { sendRecoveryMail } from "@/utils/session/sendRecoveryMail";
-// import { checkUserSession } from "../functions/checkUserSession";
-
-const email = ref("");
-const password = ref("");
-// const remember = ref("");
-
-// Ingreso
-const auth = () => {
-    login(email.value, password.value);
-};
-
-// onBeforeMount(() => {
-//     checkUserSession();
-// });
-</script>

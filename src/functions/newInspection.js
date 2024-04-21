@@ -1,22 +1,15 @@
 import { supabase } from "../supabase";
 import { useToast } from "vue-toastification";
+import { userSessionStore } from "../stores/userSession";
+
+// Se llama al estado de Pinia y obtiene usuario
+const {
+  session: {
+    user: { email: userEmail },
+  },
+} = userSessionStore();
 
 const toast = useToast();
-
-async function getUserEmail() {
-  try {
-    const { data, error } = await supabase.auth.getUser();
-
-    if (error) {
-      toast.error("Error obteniendo email de usuario: ", error.message);
-      return;
-    }
-    return data.user.email;
-  } catch (error) {
-    console.error("Error obteniendo email de usuario: ", error.message);
-    return;
-  }
-}
 
 const newInspection = async (info, file) => {
   try {
@@ -32,7 +25,7 @@ const newInspection = async (info, file) => {
       supervision_ejecutora: info.supervision_ejecutora,
       observaciones: info.observaciones,
       funcion_contrato: info.funcion_contrato,
-      fiscalizador: await getUserEmail(),
+      fiscalizador: userEmail,
       RutSDV: info.RutSDV,
       file: file,
       //   comentario_funcion_contrato: info.comentario_funcion_contrato, -> no por ahora
