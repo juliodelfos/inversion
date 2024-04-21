@@ -120,11 +120,16 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { supabase } from "@/supabase";
-import { resolveComponent } from "vue";
+import { resolveComponent, ref } from "vue";
 import { userSessionStore } from "../stores/userSession";
 import router from "@/router";
-
 const userSession = userSessionStore();
+
+const hideMenu = ref("visible");
+
+if (userSession.email.split("@")[1] !== "mintrab.gob.cl") {
+    hideMenu.value = "hidden";
+}
 
 const navigation = [
     { name: "Buscar", to: "/buscador", current: null, public: true },
