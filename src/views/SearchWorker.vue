@@ -47,6 +47,7 @@ async function searchByRut(rutSinDV) {
                     label="RUT sin dígito verificador"
                     placeholder="Ej: 15325987"
                     size="lg"
+                    autofocus="true"
                 >
                     <template #prefix>
                         <svg
