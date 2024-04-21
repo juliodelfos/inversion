@@ -21,6 +21,14 @@
                         required
                     />
 
+                    <fwb-select
+                        v-model="role"
+                        placeholder="Rol / Empleador"
+                        label="Seleccionar rol"
+                        required
+                        :options="roles"
+                    />
+
                     <fwb-input
                         v-model="email"
                         placeholder="correo@ejemplo.cl"
@@ -56,7 +64,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { FwbInput } from "flowbite-vue";
+import { FwbInput, FwbSelect } from "flowbite-vue";
 import { supabase } from "../supabase";
 import { useToast } from "vue-toastification";
 
@@ -64,7 +72,17 @@ const first_name = ref("");
 const last_name = ref("");
 const email = ref("");
 const password = ref("");
+const role = ref("");
 const toast = useToast();
+
+const roles = ref([
+    { name: "Administrador sistema", value: "admin" },
+    { name: "Institución pública", value: "ejecutor_publico" },
+    {
+        name: "Institución privada",
+        value: "ejecutora_privada",
+    },
+]);
 
 const createUser = async () => {
     const { data, error } = await supabase.auth.signUp({
@@ -81,6 +99,7 @@ const createUser = async () => {
         .from("users")
         .update({
             full_name: `${first_name.value} ${last_name.value}`,
+            role: role.value,
         })
         .eq("id", data.user.id);
     if (error) {
@@ -88,6 +107,11 @@ const createUser = async () => {
         throw new Error(error.message);
     }
     toast.success(`Usuario ${data.user.email} creado correctamente`);
+    first_name.value = "";
+    last_name.value = "";
+    email.value = "";
+    password.value = "";
+    role.value = "";
     return data;
 };
 </script>
