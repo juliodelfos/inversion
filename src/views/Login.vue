@@ -14,7 +14,7 @@
                 />
             </a>
             <div
-                class=" w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
             >
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1
@@ -93,21 +93,21 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref } from "vue";
 import { login } from "../functions/login";
 //   import { sendRecoveryMail } from "@/utils/session/sendRecoveryMail";
-import { checkUserSession } from "../functions/checkUserSession";
+// import { checkUserSession } from "../functions/checkUserSession";
 
 const email = ref("");
 const password = ref("");
 // const remember = ref("");
 
 // Ingreso
-const auth = async () => {
+const auth = () => {
     login(email.value, password.value);
 };
 
-onBeforeMount(() => {
-    checkUserSession();
-});
+// onBeforeMount(() => {
+//     checkUserSession();
+// });
 </script>
