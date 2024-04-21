@@ -3,16 +3,15 @@
         <div
             class="flex flex-col items-center justify-center md:h-screen pt-20 md:pt-0 px-6 md:px-0"
         >
-            <a
-                href="#"
+            <span
                 class="flex items-center mb-6 text-lg font-semibold text-gray-900 dark:text-white"
             >
                 <img
                     class="w-32 h-32 mr-2"
                     src="../assets/subtrab_logo.png"
-                    alt="logo"
+                    alt="Logo Subsecretaría del Trabajo"
                 />
-            </a>
+            </span>
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
             >
@@ -27,7 +26,7 @@
                             <label
                                 for="email"
                                 class="block mb-2 text-sm font-medium text-[#003D80] dark:text-white"
-                                >Tu correo electrónico</label
+                                >Correo electrónico</label
                             >
                             <input
                                 type="email"
