@@ -45,6 +45,28 @@
                                 "
                                 >{{ item.name }}</router-link
                             >
+                            <button
+                                class="flex rounded-md px-5 py-2 text-sm font-medium bg-red-800 text-white align-middle gap-x-1"
+                                @click="salir"
+                            >
+                                <span
+                                    ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="w-4 h-4"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                                        />
+                                    </svg>
+                                </span>
+                                <p class="pb-0">Salir</p>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -67,6 +89,28 @@
                     :aria-current="item.current ? 'page' : undefined"
                     >{{ item.name }}</DisclosureButton
                 >
+                <button
+                    class="ml-3 flex rounded-md px-5 py-2 text-sm font-medium bg-red-800 text-white align-middle gap-x-1"
+                    @click="salir"
+                >
+                    <span
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-4 h-4"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                            />
+                        </svg>
+                    </span>
+                    <p class="pb-0">Salir</p>
+                </button>
             </div>
         </DisclosurePanel>
     </Disclosure>
@@ -75,18 +119,43 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { supabase } from "@/supabase";
 import { resolveComponent } from "vue";
+import { userSessionStore } from "../stores/userSession";
+import router from "@/router";
+
+const userSession = userSessionStore();
 
 const navigation = [
-    { name: "Buscar", to: "/buscador", current: null },
-    { name: "Descargar informe", to: "/descargar-reporte", current: null },
-    { name: "Crear usuario", to: "/crear-usuario", current: null },
+    { name: "Buscar", to: "/buscador", current: null, public: true },
+    {
+        name: "Descargar informe",
+        to: "/descargar-reporte",
+        current: null,
+        public: true,
+    },
+    {
+        name: "Crear usuario",
+        to: "/crear-usuario",
+        current: null,
+        public: false,
+    },
 ];
 
 const routeToIndexMapping = {
     "/buscador": 0,
     "/descargar-reporte": 1,
     "/crear-usuario": 2,
+};
+
+const salir = async () => {
+    const { error } = await supabase.auth.signOut({ scope: "local" });
+    userSession.session = null;
+    if (error) {
+        console.error("Error al cerrar sesión", error.message);
+    } else {
+        router.replace("/");
+    }
 };
 
 const currentPath = window.location.pathname;
