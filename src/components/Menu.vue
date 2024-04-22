@@ -31,14 +31,14 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <router-link
-                                v-for="item in navigation"
+                                v-for="item in cutNavbar"
                                 :key="item.name"
                                 :to="item.to"
+                                class="rounded-md px-3 py-2 text-sm font-medium"
                                 :class="[
                                     item.to == $route.path
-                                        ? 'bg-gray-900 text-white'
-                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                    'rounded-md px-3 py-2 text-sm font-medium',
+                                        ? `${currentPathClasses}`
+                                        : `${notCurrentPathClasses}`,
                                 ]"
                                 :aria-current="
                                     item.current ? 'page' : undefined
@@ -65,7 +65,7 @@
                                         />
                                     </svg>
                                 </span>
-                                <p class="pb-0">Salir</p>
+                                <p>Salir</p>
                             </button>
                         </div>
                     </div>
@@ -76,15 +76,15 @@
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <DisclosureButton
-                    v-for="item in navigation"
+                    v-for="item in cutNavbar"
                     :key="item.name"
                     :as="routerLink"
                     :to="item.to"
                     :class="[
                         item.to == $route.path
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'block rounded-md px-3 py-2 text-base font-medium',
+                            ? `bg-gray-900 text-white ${item.hidden}`
+                            : `text-gray-300 hover:bg-gray-700 hover:text-white ${item.hidden}`,
+                        `block rounded-md px-3 py-2 text-base font-medium`,
                     ]"
                     :aria-current="item.current ? 'page' : undefined"
                     >{{ item.name }}</DisclosureButton
@@ -109,7 +109,7 @@
                             />
                         </svg>
                     </span>
-                    <p class="pb-0">Salir</p>
+                    <p>Salir</p>
                 </button>
             </div>
         </DisclosurePanel>
@@ -120,32 +120,94 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { supabase } from "@/supabase";
-import { resolveComponent, ref } from "vue";
+import { resolveComponent, computed } from "vue";
+import { useRoute } from "vue-router";
 import { userSessionStore } from "../stores/userSession";
 import router from "@/router";
 const userSession = userSessionStore();
 
-const hideMenu = ref("visible");
+const route = useRoute();
 
-if (userSession.email.split("@")[1] !== "mintrab.gob.cl") {
-    hideMenu.value = "hidden";
-}
+const currentPathClasses = "bg-gray-900 text-white";
+const notCurrentPathClasses =
+    "text-gray-300 hover:bg-gray-700 hover:text-white";
+
+// let algo = navigation.forEach((i) => {
+//     // Usuario es admin y está en ruta
+//     if (email.split("@")[1] == "mintrab.gob.cl" && i.name == route.name) {
+//         currentPathClasses2.value = "bg-gray-900 text-white";
+//     }
+//     // Usuario es admin y no está en ruta
+//     else if (email.split("@")[1] == "mintrab.gob.cl" && i.name !== route.name) {
+//         notCurrentPathClasses2.value =
+//             "text-gray-300 hover:bg-gray-700 hover:text-white ";
+//     }
+//     // Usuario no es admin y está en ruta
+//     else if (email.split("@")[1] !== "mintrab.gob.cl" && i.name == route.name) {
+//         currentPathClasses2.value = "bg-gray-900 text-white hidden";
+//     }
+//     // Usuario no es admin y no está en ruta
+//     else if (
+//         email.split("@")[1] !== "mintrab.gob.cl" &&
+//         i.name !== route.name
+//     ) {
+//         notCurrentPathClasses2.value =
+//             "text-gray-300 hover:bg-gray-700 hover:text-white hidden";
+//     }
+// });
+
+// const currentPathClasses2 = ref(null);
+// const notCurrentPathClasses2 = ref(null);
 
 const navigation = [
-    { name: "Buscar", to: "/buscador", current: null, public: true },
+    { name: "Buscar", to: "/buscador", current: null, class: null },
     {
         name: "Descargar informe",
         to: "/descargar-reporte",
         current: null,
-        public: true,
+        class: null,
     },
     {
         name: "Crear usuario",
         to: "/crear-usuario",
         current: null,
-        public: false,
+        class: null,
     },
 ];
+
+const cutNavbar = computed(() => {
+    if (userSession.email.split("@")[1] !== "mintrab.gob.cl") {
+        // return navigation.splice(0, 2);
+        const noAdminNav = [
+            { name: "Buscar", to: "/buscador", current: null, class: null },
+            {
+                name: "Descargar informe",
+                to: "/descargar-reporte",
+                current: null,
+                class: null,
+            },
+        ];
+
+        return noAdminNav;
+    } else {
+        const adminNav = [
+            { name: "Buscar", to: "/buscador", current: null, class: null },
+            {
+                name: "Descargar informe",
+                to: "/descargar-reporte",
+                current: null,
+                class: null,
+            },
+            {
+                name: "Crear usuario",
+                to: "/crear-usuario",
+                current: null,
+                class: null,
+            },
+        ];
+        return adminNav;
+    }
+});
 
 const routeToIndexMapping = {
     "/buscador": 0,
@@ -156,6 +218,7 @@ const routeToIndexMapping = {
 const salir = async () => {
     const { error } = await supabase.auth.signOut({ scope: "local" });
     userSession.session = null;
+    userSession.email = "mail@ejemplo.cl";
     if (error) {
         console.error("Error al cerrar sesión", error.message);
     } else {

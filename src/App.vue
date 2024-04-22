@@ -9,7 +9,7 @@ import router from "./router";
 // Se importa estado global de Pinia
 import { userSessionStore } from "./stores/userSession";
 
-// Se llama al estado de Pinia
+// Se llama al estado de Pinia de la sesión
 const userSession = userSessionStore();
 
 // Y se le almacena la sesión de usuario
