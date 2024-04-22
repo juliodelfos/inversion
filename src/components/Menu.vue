@@ -130,53 +130,25 @@ const notCurrentPathClasses =
     "text-gray-300 hover:bg-gray-700 hover:text-white";
 
 const navigation = [
-    { name: "Buscar", to: "/buscador", current: null, class: null },
+    { name: "Buscar", to: "/buscador", current: null, role: "externo" },
     {
         name: "Descargar informe",
         to: "/descargar-reporte",
         current: null,
-        class: null,
+        role: "externo",
     },
     {
         name: "Crear usuario",
         to: "/crear-usuario",
         current: null,
-        class: null,
+        role: "admin",
     },
 ];
 
 const cutNavbar = computed(() => {
-    if (userSession.email.split("@")[1] !== "mintrab.gob.cl") {
-        // return navigation.splice(0, 2);
-        const noAdminNav = [
-            { name: "Buscar", to: "/buscador", current: null, class: null },
-            {
-                name: "Descargar informe",
-                to: "/descargar-reporte",
-                current: null,
-                class: null,
-            },
-        ];
-
-        return noAdminNav;
-    } else {
-        const adminNav = [
-            { name: "Buscar", to: "/buscador", current: null, class: null },
-            {
-                name: "Descargar informe",
-                to: "/descargar-reporte",
-                current: null,
-                class: null,
-            },
-            {
-                name: "Crear usuario",
-                to: "/crear-usuario",
-                current: null,
-                class: null,
-            },
-        ];
-        return adminNav;
-    }
+    return userSession.email.split("@")[1] !== "mintrab.gob.cl"
+        ? navigation.filter((item) => item.role !== "admin")
+        : navigation;
 });
 
 const routeToIndexMapping = {
