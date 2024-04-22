@@ -80,11 +80,11 @@
                     :key="item.name"
                     :as="routerLink"
                     :to="item.to"
+                    class="block rounded-md px-3 py-2 text-base font-medium"
                     :class="[
                         item.to == $route.path
-                            ? `bg-gray-900 text-white ${item.hidden}`
-                            : `text-gray-300 hover:bg-gray-700 hover:text-white ${item.hidden}`,
-                        `block rounded-md px-3 py-2 text-base font-medium`,
+                            ? `${currentPathClasses}`
+                            : `${notCurrentPathClasses}`,
                     ]"
                     :aria-current="item.current ? 'page' : undefined"
                     >{{ item.name }}</DisclosureButton
@@ -125,8 +125,6 @@ import { useRoute } from "vue-router";
 import { userSessionStore } from "../stores/userSession";
 import router from "@/router";
 const userSession = userSessionStore();
-
-const route = useRoute();
 
 const currentPathClasses = "bg-gray-900 text-white";
 const notCurrentPathClasses =

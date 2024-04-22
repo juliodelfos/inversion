@@ -57,6 +57,7 @@ const auth = () => {
                                 required
                                 v-model="email"
                                 autocomplete="on"
+                                autofocus="true"
                             />
                         </div>
                         <div>
