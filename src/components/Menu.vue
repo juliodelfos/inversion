@@ -121,7 +121,6 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { supabase } from "@/supabase";
 import { resolveComponent, computed } from "vue";
-import { useRoute } from "vue-router";
 import { userSessionStore } from "../stores/userSession";
 import router from "@/router";
 const userSession = userSessionStore();
@@ -129,33 +128,6 @@ const userSession = userSessionStore();
 const currentPathClasses = "bg-gray-900 text-white";
 const notCurrentPathClasses =
     "text-gray-300 hover:bg-gray-700 hover:text-white";
-
-// let algo = navigation.forEach((i) => {
-//     // Usuario es admin y está en ruta
-//     if (email.split("@")[1] == "mintrab.gob.cl" && i.name == route.name) {
-//         currentPathClasses2.value = "bg-gray-900 text-white";
-//     }
-//     // Usuario es admin y no está en ruta
-//     else if (email.split("@")[1] == "mintrab.gob.cl" && i.name !== route.name) {
-//         notCurrentPathClasses2.value =
-//             "text-gray-300 hover:bg-gray-700 hover:text-white ";
-//     }
-//     // Usuario no es admin y está en ruta
-//     else if (email.split("@")[1] !== "mintrab.gob.cl" && i.name == route.name) {
-//         currentPathClasses2.value = "bg-gray-900 text-white hidden";
-//     }
-//     // Usuario no es admin y no está en ruta
-//     else if (
-//         email.split("@")[1] !== "mintrab.gob.cl" &&
-//         i.name !== route.name
-//     ) {
-//         notCurrentPathClasses2.value =
-//             "text-gray-300 hover:bg-gray-700 hover:text-white hidden";
-//     }
-// });
-
-// const currentPathClasses2 = ref(null);
-// const notCurrentPathClasses2 = ref(null);
 
 const navigation = [
     { name: "Buscar", to: "/buscador", current: null, class: null },
