@@ -1,18 +1,19 @@
 import { supabase } from "../supabase";
 
 const sendRecoveryMail = async (email) => {
-  // console.log(email)
-  // const protocol = window.location.protocol;
-  // const port = window.location.port;
-  // const hostname = window.location.hostname;
-  // console.log(email);
   try {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email);
-    console.log(data);
-    console.log(error.message);
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email.trim()); // Trim email to remove extra spaces
+
+    if (error) {
+      console.error("Error sending recovery email:", error.message);
+      return null;
+    }
+
+    console.log("Recovery email sent:", data);
     return data;
   } catch (error) {
-    return console.log(error);
+    console.error("Unexpected error:", error);
+    return null;
   }
 };
 

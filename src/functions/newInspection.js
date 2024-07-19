@@ -2,7 +2,6 @@ import { supabase } from "../supabase";
 import { useToast } from "vue-toastification";
 import { userSessionStore } from "../stores/userSession";
 
-// Se llama al estado de Pinia y obtiene usuario
 const {
   session: {
     user: { email: userEmail },
@@ -15,10 +14,7 @@ const newInspection = async (info, file) => {
   try {
     const { data, error } = await supabase.from("fiscalizacion").insert({
       presencia: info.presencia,
-      // timestamp -> autogenerado
-      // id -> autogenerado
-      date: info.datetime, // fecha y hora
-      // time: info.time, -> ya no aplicaría
+      date: info.datetime,
       firma: info.firma,
       horarios_firma: info.horarios_firma,
       utiliza_epp: info.utiliza_epp,
@@ -28,19 +24,14 @@ const newInspection = async (info, file) => {
       fiscalizador: userEmail,
       RutSDV: info.RutSDV,
       file: file,
-      //   comentario_funcion_contrato: info.comentario_funcion_contrato, -> no por ahora
       comentario_utiliza_epp: info.comentario_utiliza_epp,
       errorDatos: info.errorDatos,
       herramientas: info.herramientas,
-      //   condiciones_espacio_laboral: info.condiciones_espacio_laboral, -> no por ahora
-      comentario_condiciones_espacio_laboral:
-        info.comentario_condiciones_espacio_laboral,
+      comentario_condiciones_espacio_laboral: info.comentario_condiciones_espacio_laboral,
       condiciones_maquinas: info.condiciones_maquinas,
-      //   comentario_condiciones_maquinas: info.comentario_condiciones_maquinas, -> no por ahora
       logo_proempleo: info.logo_proempleo,
       comuna: info.comuna,
       region: info.region,
-      // firmaImg: info.imagenFirma.value, -> ya no aplicaría
       mes: info.mes,
       nombres: info.nombres,
       apellidos: info.apellidos,
@@ -49,17 +40,17 @@ const newInspection = async (info, file) => {
       prevencion_riesgos: info.prevencion_riesgos,
     });
 
-    toast.success(`Supervisión del RUT ${info.RutSDV} registrada exitosamente`);
-
     if (error) {
       toast.error("Error registrando supervisión, inténtalo nuevamente");
-      // console.error("Error insertando supervisión: ", error.message);
+      console.error("Error insertando supervisión: ", error.message);
       return;
     }
 
+    toast.success(`Supervisión del RUT ${info.RutSDV} registrada exitosamente`);
     return data;
   } catch (error) {
-    console.error("Error insertando supervisión");
+    toast.error("Error inesperado al registrar supervisión, inténtalo nuevamente");
+    console.error("Error inesperado insertando supervisión: ", error);
     return;
   }
 };
