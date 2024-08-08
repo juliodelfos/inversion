@@ -32,24 +32,44 @@
   const route = useRoute();
   
   const nuevaEncuesta = async () => {
-    const data = {
-      RutSDV: route.params.rut,
-      region: route.params.region,
-      comentario_encuesta: rankings.value.presencia ? "Sin presencia" : rankings.value.comentario_encuesta,
-      presencia: rankings.value.presencia,
-      fiscalizador: userEmail,
-      pregunta_1: rankings.value.presencia ? 1 : rankings.value.pregunta_1,
-      pregunta_2: rankings.value.presencia ? 1 : rankings.value.pregunta_2,
-      pregunta_3: rankings.value.presencia ? 1 : rankings.value.pregunta_3,
-    };
-  
-    await newSurvey(data);
-    router.push({
-      path: nextRouter.value,
-      query: { error: errorDatos.value },
-      replace: true,
-    });
-  };
+    // Si persona está presente
+    if (rankings.value.presencia == false) {
+        const data = {
+            RutSDV: route.params.rut,
+            pregunta_1: rankings.value.pregunta_1,
+            pregunta_2: rankings.value.pregunta_2,
+            pregunta_3: rankings.value.pregunta_3,
+            region: route.params.region,
+            comentario_encuesta: rankings.value.comentario_encuesta,
+            presencia: true,
+            fiscalizador: userEmail,
+        };
+        await newSurvey(data);
+        router.push({
+            path: nextRouter.value,
+            query: { error: errorDatos.value },
+            replace: true,
+        });
+        // Si persona no está
+    } else {
+        const data = {
+            RutSDV: route.params.rut,
+            pregunta_1: 1,
+            pregunta_2: 1,
+            pregunta_3: 1,
+            region: route.params.region,
+            comentario_encuesta: "Sin presencia",
+            presencia: false,
+            fiscalizador: userEmail,
+        };
+        await newSurvey(data);
+        router.push({
+            path: nextRouter.value,
+            query: { error: errorDatos.value },
+            replace: true,
+        });
+    }
+};
   
   const rankings = ref({
     presencia: false,
