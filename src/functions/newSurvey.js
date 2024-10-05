@@ -5,7 +5,7 @@ const toast = useToast();
 
 const newSurvey = async (datos) => {
   try {
-    const { data, error } = await supabase.from("surveys").insert(datos);
+    const { data, error } = await supabase.from("encuestas").insert(datos);
 
     if (error) {
       toast.error("Error registrando encuesta. Inténtalo nuevamente");
