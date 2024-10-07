@@ -43,7 +43,6 @@
             comentario_encuesta: rankings.value.comentario_encuesta,
             presencia: true,
             fiscalizador: userEmail,
-            mes: '',
         };
         await newSurvey(data);
         router.push({
@@ -62,7 +61,6 @@
             comentario_encuesta: "Sin presencia",
             presencia: false,
             fiscalizador: userEmail,
-            mes: '',
         };
         await newSurvey(data);
         router.push({
